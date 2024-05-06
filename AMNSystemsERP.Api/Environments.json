@@ -1,0 +1,7 @@
+﻿{
+  "Environments": {
+    //"Environment": "Local"
+    "Environment": "Development"
+    //
+  }
+}

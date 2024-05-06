@@ -1,0 +1,30 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="SumHeadCategoriesByMainHeadIdPrint" targetNamespace="http://tempuri.org/SumHeadCategoriesByMainHeadIdPrint.xsd" xmlns:mstns="http://tempuri.org/SumHeadCategoriesByMainHeadIdPrint.xsd" xmlns="http://tempuri.org/SumHeadCategoriesByMainHeadIdPrint.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop" attributeFormDefault="qualified" elementFormDefault="qualified">
+  <xs:annotation>
+    <xs:appinfo source="urn:schemas-microsoft-com:xml-msdatasource">
+      <DataSource DefaultConnectionIndex="0" FunctionsComponentName="QueriesTableAdapter" Modifier="AutoLayout, AnsiClass, Class, Public" SchemaSerializationMode="IncludeSchema" xmlns="urn:schemas-microsoft-com:xml-msdatasource">
+        <Connections />
+        <Tables />
+        <Sources />
+      </DataSource>
+    </xs:appinfo>
+  </xs:annotation>
+  <xs:element name="SumHeadCategoriesByMainHeadIdPrint" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:EnableTableAdapterManager="true" msprop:Generator_DataSetName="SumHeadCategoriesByMainHeadIdPrint" msprop:Generator_UserDSName="SumHeadCategoriesByMainHeadIdPrint">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="SumHeadCategoriesByMainHeadIdPrint" msprop:Generator_TableClassName="SumHeadCategoriesByMainHeadIdPrintDataTable" msprop:Generator_TableVarName="tableSumHeadCategoriesByMainHeadIdPrint" msprop:Generator_TablePropName="_SumHeadCategoriesByMainHeadIdPrint" msprop:Generator_RowDeletingName="SumHeadCategoriesByMainHeadIdPrintRowDeleting" msprop:Generator_RowChangingName="SumHeadCategoriesByMainHeadIdPrintRowChanging" msprop:Generator_RowEvHandlerName="SumHeadCategoriesByMainHeadIdPrintRowChangeEventHandler" msprop:Generator_RowDeletedName="SumHeadCategoriesByMainHeadIdPrintRowDeleted" msprop:Generator_UserTableName="SumHeadCategoriesByMainHeadIdPrint" msprop:Generator_RowChangedName="SumHeadCategoriesByMainHeadIdPrintRowChanged" msprop:Generator_RowEvArgName="SumHeadCategoriesByMainHeadIdPrintRowChangeEvent" msprop:Generator_RowClassName="SumHeadCategoriesByMainHeadIdPrintRow">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="HeadCategoriesId" msprop:Generator_ColumnVarNameInTable="columnHeadCategoriesId" msprop:Generator_ColumnPropNameInRow="HeadCategoriesId" msprop:Generator_ColumnPropNameInTable="HeadCategoriesIdColumn" msprop:Generator_UserColumnName="HeadCategoriesId" type="xs:string" minOccurs="0" />
+              <xs:element name="HeadCategoriesName" msprop:Generator_ColumnVarNameInTable="columnHeadCategoriesName" msprop:Generator_ColumnPropNameInRow="HeadCategoriesName" msprop:Generator_ColumnPropNameInTable="HeadCategoriesNameColumn" msprop:Generator_UserColumnName="HeadCategoriesName" type="xs:string" minOccurs="0" />
+              <xs:element name="OpeningBalance" msprop:Generator_ColumnVarNameInTable="columnOpeningBalance" msprop:Generator_ColumnPropNameInRow="OpeningBalance" msprop:Generator_ColumnPropNameInTable="OpeningBalanceColumn" msprop:Generator_UserColumnName="OpeningBalance" type="xs:string" minOccurs="0" />
+              <xs:element name="DebitAmount" msprop:Generator_ColumnVarNameInTable="columnDebitAmount" msprop:Generator_ColumnPropNameInRow="DebitAmount" msprop:Generator_ColumnPropNameInTable="DebitAmountColumn" msprop:Generator_UserColumnName="DebitAmount" type="xs:string" minOccurs="0" />
+              <xs:element name="CreditAmount" msprop:Generator_ColumnVarNameInTable="columnCreditAmount" msprop:Generator_ColumnPropNameInRow="CreditAmount" msprop:Generator_ColumnPropNameInTable="CreditAmountColumn" msprop:Generator_UserColumnName="CreditAmount" type="xs:string" minOccurs="0" />
+              <xs:element name="ClosingBalance" msprop:Generator_ColumnVarNameInTable="columnClosingBalance" msprop:Generator_ColumnPropNameInRow="ClosingBalance" msprop:Generator_ColumnPropNameInTable="ClosingBalanceColumn" msprop:Generator_UserColumnName="ClosingBalance" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

@@ -1,0 +1,34 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="ChartOfAccountsPrint" targetNamespace="http://tempuri.org/ChartOfAccountsPrint.xsd" xmlns:mstns="http://tempuri.org/ChartOfAccountsPrint.xsd" xmlns="http://tempuri.org/ChartOfAccountsPrint.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop" attributeFormDefault="qualified" elementFormDefault="qualified">
+  <xs:annotation>
+    <xs:appinfo source="urn:schemas-microsoft-com:xml-msdatasource">
+      <DataSource DefaultConnectionIndex="0" FunctionsComponentName="QueriesTableAdapter" Modifier="AutoLayout, AnsiClass, Class, Public" SchemaSerializationMode="IncludeSchema" xmlns="urn:schemas-microsoft-com:xml-msdatasource">
+        <Connections />
+        <Tables />
+        <Sources />
+      </DataSource>
+    </xs:appinfo>
+  </xs:annotation>
+  <xs:element name="ChartOfAccountsPrint" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:EnableTableAdapterManager="true" msprop:Generator_UserDSName="ChartOfAccountsPrint" msprop:Generator_DataSetName="ChartOfAccountsPrint">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="ChartOfAccountsPrint" msprop:Generator_RowClassName="ChartOfAccountsPrintRow" msprop:Generator_RowEvHandlerName="ChartOfAccountsPrintRowChangeEventHandler" msprop:Generator_RowDeletedName="ChartOfAccountsPrintRowDeleted" msprop:Generator_RowDeletingName="ChartOfAccountsPrintRowDeleting" msprop:Generator_RowEvArgName="ChartOfAccountsPrintRowChangeEvent" msprop:Generator_TablePropName="_ChartOfAccountsPrint" msprop:Generator_RowChangedName="ChartOfAccountsPrintRowChanged" msprop:Generator_RowChangingName="ChartOfAccountsPrintRowChanging" msprop:Generator_TableClassName="ChartOfAccountsPrintDataTable" msprop:Generator_UserTableName="ChartOfAccountsPrint" msprop:Generator_TableVarName="tableChartOfAccountsPrint">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="PostingAccountsId" msprop:Generator_ColumnPropNameInRow="PostingAccountsId" msprop:Generator_ColumnPropNameInTable="PostingAccountsIdColumn" msprop:Generator_ColumnVarNameInTable="columnPostingAccountsId" msprop:Generator_UserColumnName="PostingAccountsId" type="xs:string" minOccurs="0" />
+              <xs:element name="PostingAccountsName" msprop:Generator_ColumnPropNameInRow="PostingAccountsName" msprop:Generator_ColumnPropNameInTable="PostingAccountsNameColumn" msprop:Generator_ColumnVarNameInTable="columnPostingAccountsName" msprop:Generator_UserColumnName="PostingAccountsName" type="xs:string" minOccurs="0" />
+              <xs:element name="SubCategoriesId" msprop:Generator_ColumnPropNameInRow="SubCategoriesId" msprop:Generator_ColumnPropNameInTable="SubCategoriesIdColumn" msprop:Generator_ColumnVarNameInTable="columnSubCategoriesId" msprop:Generator_UserColumnName="SubCategoriesId" type="xs:string" minOccurs="0" />
+              <xs:element name="SubCategoriesName" msprop:Generator_ColumnPropNameInRow="SubCategoriesName" msprop:Generator_ColumnPropNameInTable="SubCategoriesNameColumn" msprop:Generator_ColumnVarNameInTable="columnSubCategoriesName" msprop:Generator_UserColumnName="SubCategoriesName" type="xs:string" minOccurs="0" />
+              <xs:element name="HeadCategoriesId" msprop:Generator_ColumnPropNameInRow="HeadCategoriesId" msprop:Generator_ColumnPropNameInTable="HeadCategoriesIdColumn" msprop:Generator_ColumnVarNameInTable="columnHeadCategoriesId" msprop:Generator_UserColumnName="HeadCategoriesId" type="xs:string" minOccurs="0" />
+              <xs:element name="HeadCategoriesName" msprop:Generator_ColumnPropNameInRow="HeadCategoriesName" msprop:Generator_ColumnPropNameInTable="HeadCategoriesNameColumn" msprop:Generator_ColumnVarNameInTable="columnHeadCategoriesName" msprop:Generator_UserColumnName="HeadCategoriesName" type="xs:string" minOccurs="0" />
+              <xs:element name="MainHeadsId" msprop:Generator_ColumnPropNameInRow="MainHeadsId" msprop:Generator_ColumnPropNameInTable="MainHeadsIdColumn" msprop:Generator_ColumnVarNameInTable="columnMainHeadsId" msprop:Generator_UserColumnName="MainHeadsId" type="xs:string" minOccurs="0" />
+              <xs:element name="MainHeadsName" msprop:Generator_ColumnPropNameInRow="MainHeadsName" msprop:Generator_ColumnPropNameInTable="MainHeadsNameColumn" msprop:Generator_ColumnVarNameInTable="columnMainHeadsName" msprop:Generator_UserColumnName="MainHeadsName" type="xs:string" minOccurs="0" />
+              <xs:element name="OpeningDebit" msprop:Generator_ColumnPropNameInRow="OpeningDebit" msprop:Generator_ColumnPropNameInTable="OpeningDebitColumn" msprop:Generator_ColumnVarNameInTable="columnOpeningDebit" msprop:Generator_UserColumnName="OpeningDebit" type="xs:decimal" minOccurs="0" />
+              <xs:element name="OpeningCredit" msprop:Generator_ColumnPropNameInRow="OpeningCredit" msprop:Generator_ColumnPropNameInTable="OpeningCreditColumn" msprop:Generator_ColumnVarNameInTable="columnOpeningCredit" msprop:Generator_UserColumnName="OpeningCredit" type="xs:decimal" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

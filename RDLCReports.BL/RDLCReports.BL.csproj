@@ -1,0 +1,324 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0-windows</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="ReportViewerCore.WinForms" Version="15.1.17" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\AMNSystemsERP.CL\AMNSystemsERP.CL.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="Repositories\Reports\Payroll\DataSet\AttendanceDataSet.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>AttendanceDataSet.xsd</DependentUpon>
+    </Compile>
+    <Compile Update="Repositories\Reports\Payroll\DataSet\AttendanceRegisterDataSet.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>AttendanceRegisterDataSet.xsd</DependentUpon>
+    </Compile>
+    <Compile Update="Repositories\Reports\Payroll\DataSet\EmployeeDataSet.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>EmployeeDataSet.xsd</DependentUpon>
+    </Compile>
+    <Compile Update="Repositories\Reports\Payroll\DataSet\OvertimeDataSet.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>OvertimeDataSet.xsd</DependentUpon>
+    </Compile>
+    <Compile Update="Repositories\Reports\Payroll\DataSet\SalaryDataSet.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>SalaryDataSet.xsd</DependentUpon>
+    </Compile>
+    <Compile Update="Repositories\Reports\ReportsDataSets\Accounts\ChartOfAccountsPrint.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>ChartOfAccountsPrint.xsd</DependentUpon>
+    </Compile>
+    <Compile Update="Repositories\Reports\ReportsDataSets\Accounts\DailyVouchersPrint.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>DailyVouchersPrint.xsd</DependentUpon>
+    </Compile>
+    <Compile Update="Repositories\Reports\ReportsDataSets\Accounts\HeadCategoryDetailPrint.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>HeadCategoryDetailPrint.xsd</DependentUpon>
+    </Compile>
+    <Compile Update="Repositories\Reports\ReportsDataSets\Accounts\LedgerPrint.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>LedgerPrint.xsd</DependentUpon>
+    </Compile>
+    <Compile Update="Repositories\Reports\ReportsDataSets\Accounts\MainHeadDetailPrint.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>MainHeadDetailPrint.xsd</DependentUpon>
+    </Compile>
+    <Compile Update="Repositories\Reports\ReportsDataSets\Accounts\SumHeadCategoriesByMainHeadIdPrint.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>SumHeadCategoriesByMainHeadIdPrint.xsd</DependentUpon>
+    </Compile>
+    <Compile Update="Repositories\Reports\ReportsDataSets\Accounts\SumPostingAccountsBySubCategoryIdPrint.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>SumPostingAccountsBySubCategoryIdPrint.xsd</DependentUpon>
+    </Compile>
+    <Compile Update="Repositories\Reports\ReportsDataSets\Accounts\SumSubCategoriesByHeadCategoryIdPrint.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>SumSubCategoriesByHeadCategoryIdPrint.xsd</DependentUpon>
+    </Compile>
+    <Compile Update="Repositories\Reports\ReportsDataSets\Accounts\TrialBalancePrint.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>TrialBalancePrint.xsd</DependentUpon>
+    </Compile>
+    <Compile Update="Repositories\Reports\ReportsDataSets\Accounts\Voucher\TrialBalancePrint.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>TrialBalancePrint.xsd</DependentUpon>
+    </Compile>
+    <Compile Update="Repositories\Reports\ReportsDataSets\Accounts\Voucher\VoucherPrint.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>VoucherPrint.xsd</DependentUpon>
+    </Compile>
+    <Compile Update="Repositories\Reports\ReportsDataSets\Production\OrderConsumption.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>OrderConsumption.xsd</DependentUpon>
+    </Compile>
+    <Compile Update="Repositories\Reports\ReportsDataSets\Production\OrderStatus.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>OrderStatus.xsd</DependentUpon>
+    </Compile>
+    <Compile Update="Repositories\Reports\ReportsDataSets\StockManagement\Invoice.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Invoice.xsd</DependentUpon>
+    </Compile>
+    <Compile Update="Repositories\Reports\ReportsDataSets\StockManagement\items.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>items.xsd</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="Repositories\Reports\Accounts\ChartOfAccountsPrint.rdlc">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Repositories\Reports\Accounts\DailyVouchersPaymentReceiptPrint.rdlc">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Repositories\Reports\Accounts\DailyVouchersPrint.rdlc">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Repositories\Reports\Accounts\GroupWisePrint.rdlc">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Repositories\Reports\Accounts\HeadCategoryDetailPrint.rdlc">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Repositories\Reports\Accounts\LedgerExpensePrint.rdlc">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Repositories\Reports\Accounts\LedgerPrint.rdlc">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Repositories\Reports\Accounts\MainHeadDetailPrint.rdlc">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Repositories\Reports\Accounts\PayableReceiveablePrint.rdlc">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Repositories\Reports\Accounts\ProfitAndLossPrint.rdlc">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Repositories\Reports\Accounts\SumHeadCategoriesByMainHeadIdPrint.rdlc">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Repositories\Reports\Accounts\SubCategoryPrint.rdlc">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Repositories\Reports\Accounts\SumSubCategoriesByHeadCategoryIdPrint.rdlc">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Repositories\Reports\Accounts\BalanceSheetPrint.rdlc">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Repositories\Reports\Accounts\TrialBalancePrint.rdlc">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Repositories\Reports\Accounts\VoucherListPrint.rdlc">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Repositories\Reports\Accounts\VoucherAdvancePrint.rdlc">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Repositories\Reports\Accounts\VoucherPrint.rdlc">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Repositories\Reports\Payroll\AttendanceRegisterPrint.rdlc">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Repositories\Reports\Payroll\DataSet\AttendanceRegisterDataSet.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>AttendanceRegisterDataSet.Designer.cs</LastGenOutput>
+    </None>
+    <None Update="Repositories\Reports\Payroll\DataSet\SalaryDataSet.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>SalaryDataSet.Designer.cs</LastGenOutput>
+    </None>
+    <None Update="Repositories\Reports\Payroll\OvertimeListPrint.rdlc">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Repositories\Reports\Payroll\DataSet\AttendanceDataSet.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>AttendanceDataSet.Designer.cs</LastGenOutput>
+    </None>
+    <None Update="Repositories\Reports\Payroll\DataSet\EmployeeDataSet.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>EmployeeDataSet.Designer.cs</LastGenOutput>
+    </None>
+    <None Update="Repositories\Reports\Payroll\AttendanceListPrint.rdlc">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Repositories\Reports\Payroll\DataSet\OvertimeDataSet.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>OvertimeDataSet.Designer.cs</LastGenOutput>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Repositories\Reports\Payroll\EmployeeListPrint.rdlc">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Repositories\Reports\Payroll\PaySlipPrint.rdlc">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Repositories\Reports\Payroll\DirectorSalarySheetPrint.rdlc">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Repositories\Reports\Payroll\SalarySheetPrint.rdlc">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Repositories\Reports\Production\IssueSlipPrint.rdlc">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Repositories\Reports\Production\ArticleBalanceEmployeeWisePrint.rdlc">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Repositories\Reports\Production\OrderConsumptionPrint.rdlc">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Repositories\Reports\Production\OrderStatusMatrixPrint.rdlc">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Repositories\Reports\ReportsDataSets\Accounts\ChartOfAccountsPrint.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>ChartOfAccountsPrint.Designer.cs</LastGenOutput>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Repositories\Reports\ReportsDataSets\Accounts\DailyVouchersPrint.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>DailyVouchersPrint.Designer.cs</LastGenOutput>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Repositories\Reports\ReportsDataSets\Accounts\HeadCategoryDetailPrint.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>HeadCategoryDetailPrint.Designer.cs</LastGenOutput>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Repositories\Reports\ReportsDataSets\Accounts\LedgerPrint.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>LedgerPrint.Designer.cs</LastGenOutput>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Repositories\Reports\ReportsDataSets\Accounts\MainHeadDetailPrint.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>MainHeadDetailPrint.Designer.cs</LastGenOutput>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Repositories\Reports\ReportsDataSets\Accounts\SumHeadCategoriesByMainHeadIdPrint.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>SumHeadCategoriesByMainHeadIdPrint.Designer.cs</LastGenOutput>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Repositories\Reports\ReportsDataSets\Accounts\SumPostingAccountsBySubCategoryIdPrint.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>SumPostingAccountsBySubCategoryIdPrint.Designer.cs</LastGenOutput>
+    </None>
+    <None Update="Repositories\Reports\ReportsDataSets\Accounts\SumSubCategoriesByHeadCategoryIdPrint.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>SumSubCategoriesByHeadCategoryIdPrint.Designer.cs</LastGenOutput>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Repositories\Reports\ReportsDataSets\Accounts\TrialBalancePrint.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>TrialBalancePrint.Designer.cs</LastGenOutput>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Repositories\Reports\ReportsDataSets\Accounts\Voucher\TrialBalancePrint.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>TrialBalancePrint.Designer.cs</LastGenOutput>
+    </None>
+    <None Update="Repositories\Reports\ReportsDataSets\Accounts\Voucher\VoucherPrint.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>VoucherPrint.Designer.cs</LastGenOutput>
+    </None>
+    <None Update="Repositories\Reports\ReportsDataSets\Production\OrderConsumption.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>OrderConsumption.Designer.cs</LastGenOutput>
+    </None>
+    <None Update="Repositories\Reports\ReportsDataSets\Production\OrderStatus.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>OrderStatus.Designer.cs</LastGenOutput>
+    </None>
+    <None Update="Repositories\Reports\ReportsDataSets\StockManagement\Invoice.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>Invoice.Designer.cs</LastGenOutput>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Repositories\Reports\ReportsDataSets\StockManagement\items.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>items.Designer.cs</LastGenOutput>
+    </None>
+    <None Update="Repositories\Reports\StockManagement\DailyTransactionsPrint.rdlc">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Repositories\Reports\StockManagement\PartyLedgerPrint.rdlc">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Repositories\Reports\StockManagement\PurchaseOrderPrint.rdlc">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Repositories\Reports\StockManagement\InvoicePrint.rdlc">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Repositories\Reports\StockManagement\ItemsLedgerPrint.rdlc">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Repositories\Reports\StockManagement\ItemsPrint.rdlc">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Repositories\Reports\StockManagement\StockSummaryPrint.rdlc">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Repositories\Reports\StockSummaryPrint.rdlc">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
+</Project>

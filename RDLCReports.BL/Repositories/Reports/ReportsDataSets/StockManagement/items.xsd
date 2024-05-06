@@ -1,0 +1,34 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="items" targetNamespace="http://tempuri.org/items.xsd" xmlns:mstns="http://tempuri.org/items.xsd" xmlns="http://tempuri.org/items.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop" attributeFormDefault="qualified" elementFormDefault="qualified">
+  <xs:annotation>
+    <xs:appinfo source="urn:schemas-microsoft-com:xml-msdatasource">
+      <DataSource DefaultConnectionIndex="0" FunctionsComponentName="QueriesTableAdapter" Modifier="AutoLayout, AnsiClass, Class, Public" SchemaSerializationMode="IncludeSchema" xmlns="urn:schemas-microsoft-com:xml-msdatasource">
+        <Connections />
+        <Tables />
+        <Sources />
+      </DataSource>
+    </xs:appinfo>
+  </xs:annotation>
+  <xs:element name="items" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:Generator_UserDSName="items" msprop:EnableTableAdapterManager="true" msprop:Generator_DataSetName="items">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="items" msprop:Generator_RowEvHandlerName="itemsRowChangeEventHandler" msprop:Generator_RowDeletedName="itemsRowDeleted" msprop:Generator_RowDeletingName="itemsRowDeleting" msprop:Generator_RowEvArgName="itemsRowChangeEvent" msprop:Generator_TablePropName="_items" msprop:Generator_RowChangedName="itemsRowChanged" msprop:Generator_UserTableName="items" msprop:Generator_RowChangingName="itemsRowChanging" msprop:Generator_RowClassName="itemsRow" msprop:Generator_TableClassName="itemsDataTable" msprop:Generator_TableVarName="tableitems">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="ItemId" msprop:Generator_ColumnPropNameInTable="ItemIdColumn" msprop:Generator_ColumnPropNameInRow="ItemId" msprop:Generator_UserColumnName="ItemId" msprop:Generator_ColumnVarNameInTable="columnItemId" type="xs:int" minOccurs="0" />
+              <xs:element name="ItemName" msprop:Generator_ColumnPropNameInTable="ItemNameColumn" msprop:Generator_ColumnPropNameInRow="ItemName" msprop:Generator_UserColumnName="ItemName" msprop:Generator_ColumnVarNameInTable="columnItemName" type="xs:string" minOccurs="0" />
+              <xs:element name="ItemCategoryId" msprop:Generator_ColumnPropNameInTable="ItemCategoryIdColumn" msprop:Generator_ColumnPropNameInRow="ItemCategoryId" msprop:Generator_UserColumnName="ItemCategoryId" msprop:Generator_ColumnVarNameInTable="columnItemCategoryId" type="xs:int" minOccurs="0" />
+              <xs:element name="ItemCategoryName" msprop:Generator_ColumnPropNameInTable="ItemCategoryNameColumn" msprop:Generator_ColumnPropNameInRow="ItemCategoryName" msprop:Generator_UserColumnName="ItemCategoryName" msprop:Generator_ColumnVarNameInTable="columnItemCategoryName" type="xs:string" minOccurs="0" />
+              <xs:element name="UnitName" msprop:Generator_ColumnPropNameInTable="UnitNameColumn" msprop:Generator_ColumnPropNameInRow="UnitName" msprop:Generator_UserColumnName="UnitName" msprop:Generator_ColumnVarNameInTable="columnUnitName" type="xs:string" minOccurs="0" />
+              <xs:element name="PartNo" msprop:Generator_ColumnPropNameInTable="PartNoColumn" msprop:Generator_ColumnPropNameInRow="PartNo" msprop:Generator_UserColumnName="PartNo" msprop:Generator_ColumnVarNameInTable="columnPartNo" type="xs:string" minOccurs="0" />
+              <xs:element name="ReorderLevel" msprop:Generator_ColumnPropNameInTable="ReorderLevelColumn" msprop:Generator_ColumnPropNameInRow="ReorderLevel" msprop:Generator_UserColumnName="ReorderLevel" msprop:Generator_ColumnVarNameInTable="columnReorderLevel" type="xs:string" minOccurs="0" />
+              <xs:element name="IsActive" msprop:Generator_ColumnPropNameInTable="IsActiveColumn" msprop:Generator_ColumnPropNameInRow="IsActive" msprop:Generator_UserColumnName="IsActive" msprop:Generator_ColumnVarNameInTable="columnIsActive" type="xs:boolean" minOccurs="0" />
+              <xs:element name="ItemTypeId" msprop:Generator_UserColumnName="ItemTypeId" msprop:Generator_ColumnPropNameInTable="ItemTypeIdColumn" msprop:Generator_ColumnPropNameInRow="ItemTypeId" msprop:Generator_ColumnVarNameInTable="columnItemTypeId" type="xs:int" minOccurs="0" />
+              <xs:element name="ItemTypeName" msprop:Generator_UserColumnName="ItemTypeName" msprop:Generator_ColumnPropNameInTable="ItemTypeNameColumn" msprop:Generator_ColumnPropNameInRow="ItemTypeName" msprop:Generator_ColumnVarNameInTable="columnItemTypeName" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

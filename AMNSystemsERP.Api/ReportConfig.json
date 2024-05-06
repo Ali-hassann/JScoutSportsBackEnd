@@ -1,0 +1,266 @@
+﻿{
+  "ReportsConfigs": {
+    "Configs": [
+      {
+        "ReportName": "VoucherPrint",
+        "DataSource": "VoucherPrint",
+        "Url": "Accounts/PrintVoucher",
+        "RDLCReportType": "Accounts",
+        "RenderType": "pdf"
+      },
+      {
+        "ReportName": "VoucherAdvancePrint",
+        "DataSource": "VoucherPrint",
+        "Url": "Accounts/PrintVoucher",
+        "RDLCReportType": "Accounts",
+        "RenderType": "pdf"
+      },
+      {
+        "ReportName": "LedgerPrint",
+        "DataSource": "LedgerPrint",
+        "Url": "Accounts/LedgerPrint",
+        "RDLCReportType": "Accounts",
+        "RenderType": "pdf"
+      },
+      {
+        "ReportName": "SubCategoryPrint",
+        "DataSource": "TrialBalancePrint",
+        "Url": "Accounts/SumPostingAccountsBySubCategoryIdPrint",
+        "RDLCReportType": "Accounts",
+        "RenderType": "pdf"
+      },
+      {
+        "ReportName": "SumSubCategoriesByHeadCategoryIdPrint",
+        "DataSource": "SumSubCategoriesByHeadCategoryIdPrint",
+        "Url": "Accounts/SumSubCategoriesByHeadCategoryIdPrint",
+        "RDLCReportType": "Accounts",
+        "RenderType": "pdf"
+      },
+      {
+        "ReportName": "SumHeadCategoriesByMainHeadIdPrint",
+        "DataSource": "SumHeadCategoriesByMainHeadIdPrint",
+        "Url": "Accounts/SumHeadCategoriesByMainHeadIdPrint",
+        "RDLCReportType": "Accounts",
+        "RenderType": "pdf"
+      },
+      {
+        "ReportName": "ChartOfAccountsPrint",
+        "DataSource": "ChartOfAccountsPrint",
+        "Url": "Accounts/ChartOfAccountsPrint",
+        "RDLCReportType": "Accounts",
+        "RenderType": "pdf"
+      },
+      {
+        "ReportName": "TrialBalancePrint",
+        "DataSource": "TrialBalancePrint",
+        "Url": "Accounts/TrialBalancePrint",
+        "RDLCReportType": "Accounts",
+        "RenderType": "pdf"
+      },
+      {
+        "ReportName": "MainHeadDetailPrint",
+        "DataSource": "MainHeadDetailPrint",
+        "Url": "Accounts/MainHeadDetailPrint",
+        "RDLCReportType": "Accounts",
+        "RenderType": "pdf"
+      },
+      {
+        "ReportName": "HeadCategoryDetailPrint",
+        "DataSource": "HeadCategoryDetailPrint",
+        "Url": "Accounts/HeadCategoryDetailPrint",
+        "RDLCReportType": "Accounts",
+        "RenderType": "pdf"
+      },
+      {
+        "ReportName": "DailyVouchersPrint",
+        "DataSource": "DailyVouchersPrint",
+        "Url": "Accounts/DailyVouchersPrint",
+        "RDLCReportType": "Accounts",
+        "RenderType": "pdf"
+      },
+      {
+        "ReportName": "DailyVouchersPaymentReceiptPrint",
+        "DataSource": "DailyVouchersPrint",
+        "Url": "Accounts/PrintDailyPaymentReceipt",
+        "RDLCReportType": "Accounts",
+        "RenderType": "pdf"
+      },
+      {
+        "ReportName": "PayableReceiveablePrint",
+        "DataSource": "PayableReceiveablePrint",
+        "Url": "Accounts/PayableReceiveablePrint",
+        "RDLCReportType": "Accounts",
+        "RenderType": "pdf"
+      },
+      {
+        "ReportName": "BalanceSheetPrint",
+        "DataSource": "TrialBalancePrint",
+        "Url": "Accounts/BalanceSheetPrint",
+        "RDLCReportType": "Accounts",
+        "RenderType": "pdf"
+      },
+      {
+        "ReportName": "ProfitAndLossPrint",
+        "DataSource": "TrialBalancePrint",
+        "Url": "Accounts/ProfitAndLossPrint",
+        "RDLCReportType": "Accounts",
+        "RenderType": "pdf"
+      },
+      {
+        "ReportName": "LedgerExpensePrint",
+        "DataSource": "LedgerPrint",
+        "Url": "Accounts/LedgerExpensePrint",
+        "RDLCReportType": "Accounts",
+        "RenderType": "pdf"
+      },
+      {
+        "ReportName": "VoucherListPrint",
+        "DataSource": "DailyVouchersPrint",
+        "Url": "Accounts/PrintVoucherList",
+        "RDLCReportType": "Accounts",
+        "RenderType": "pdf"
+      },
+      {
+        "ReportName": "EmployeeListPrint",
+        "DataSource": "EmployeeDataSet",
+        "Url": "Payroll/GetEmployeesList",
+        "RDLCReportType": "Payroll",
+        "RenderType": "pdf"
+      },
+      {
+        "ReportName": "AttendanceListPrint",
+        "DataSource": "AttendanceDataSet",
+        "Url": "Payroll/GetAttendanceList",
+        "RDLCReportType": "Payroll",
+        "RenderType": "pdf"
+      },
+      {
+        "ReportName": "SalarySheetPrint",
+        "DataSource": "SalaryDataSet",
+        "Url": "Payroll/GetSalarySheet",
+        "RDLCReportType": "Payroll",
+        "RenderType": "pdf"
+      },
+      {
+        "ReportName": "DirectorSalarySheetPrint",
+        "DataSource": "SalaryDataSet",
+        "Url": "Payroll/GetDirectorSalarySheetPrint",
+        "RDLCReportType": "Payroll",
+        "RenderType": "pdf"
+      },
+      {
+        "ReportName": "PaySlipPrint",
+        "DataSource": "SalaryDataSet",
+        "Url": "Payroll/PaySlipPrint",
+        "RDLCReportType": "Payroll",
+        "RenderType": "pdf"
+      },
+      {
+        "ReportName": "OvertimeListPrint",
+        "DataSource": "OvertimeDataSet",
+        "Url": "Payroll/GetOvertimeList",
+        "RDLCReportType": "Payroll",
+        "RenderType": "pdf"
+      },
+      {
+        "ReportName": "AttendanceRegisterPrint",
+        "DataSource": "AttendanceRegisterDataSet",
+        "Url": "Payroll/GetMonthlyAttendanceRegistor",
+        "RDLCReportType": "Payroll",
+        "RenderType": "pdf"
+      },
+      {
+        "ReportName": "ItemsPrint",
+        "DataSource": "items",
+        "Url": "",
+        "RDLCReportType": "StockManagement",
+        "RenderType": "pdf"
+      },
+      {
+        "ReportName": "InvoicePrint",
+        "DataSource": "Invoice",
+        "Url": "",
+        "RDLCReportType": "StockManagement",
+        "RenderType": "pdf"
+      },
+      {
+        "ReportName": "PurchaseOrderPrint",
+        "DataSource": "Invoice",
+        "Url": "",
+        "RDLCReportType": "StockManagement",
+        "RenderType": "pdf"
+      },
+      {
+        "ReportName": "DailyTransactionsPrint",
+        "DataSource": "Invoice",
+        "Url": "",
+        "RDLCReportType": "StockManagement",
+        "RenderType": "pdf"
+      },
+      {
+        "ReportName": "ItemsLedgerPrint",
+        "DataSource": "Invoice",
+        "Url": "",
+        "RDLCReportType": "StockManagement",
+        "RenderType": "pdf"
+      },
+      {
+        "ReportName": "StockSummaryPrint",
+        "DataSource": "Invoice",
+        "Url": "",
+        "RDLCReportType": "StockManagement",
+        "RenderType": "pdf"
+      },
+      {
+        "ReportName": "PartyLedgerPrint",
+        "DataSource": "Invoice",
+        "Url": "",
+        "RDLCReportType": "StockManagement",
+        "RenderType": "pdf"
+      },
+
+      /******* Production Reports ********/
+      {
+        "ReportName": "OrderStatusMatrixPrint",
+        "DataSource": "OrderStatus",
+        "Url": "",
+        "RDLCReportType": "Production",
+        "RenderType": "pdf"
+      },
+      {
+        "ReportName": "ArticleBalanceEmployeeWisePrint",
+        "DataSource": "OrderStatus",
+        "Url": "",
+        "RDLCReportType": "Production",
+        "RenderType": "pdf"
+      },
+      {
+        "ReportName": "IssueSlipPrint",
+        "DataSource": "OrderStatus",
+        "Url": "",
+        "RDLCReportType": "Production",
+        "RenderType": "pdf"
+      },
+      {
+        "ReportName": "OrderConsumptionPrint",
+        "DataSource": "OrderConsumption",
+        "DataSource2": "processData",
+        "Url": "",
+        "RDLCReportType": "Production",
+        "RenderType": "pdf"
+      }
+
+
+
+
+      ///*Stock Management*/
+      //{
+      //  "ReportName": "PurchasePrint",
+      //  "DataSource": "Invoice",
+      //  "Url": "StockManagement/PrintPurchaseInvoice",
+      //  "RDLCReportType": "StockManagement",
+      //  "RenderType": "pdf"
+      //}
+    ]
+  }
+}
