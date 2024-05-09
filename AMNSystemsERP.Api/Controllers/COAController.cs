@@ -1,5 +1,6 @@
 ﻿using AMNSystemsERP.BL.Repositories.ChartOfAccounts;
 using AMNSystemsERP.CL.Models.AccountModels.ChartOfAccounts;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace AMNSystemsERP.Api.Controllers

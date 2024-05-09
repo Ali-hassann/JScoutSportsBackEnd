@@ -48,6 +48,7 @@ namespace AMNSystemsERP.Api
             {
                 options.SwaggerEndpoint("/swagger/v1/swagger.json", "AMN Systems ERP");
                 options.RoutePrefix = string.Empty;
+
             });
             app.UseRouting();
             app.UseCors

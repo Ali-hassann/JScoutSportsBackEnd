@@ -28,6 +28,7 @@ using AMNSystemsERP.BL.Repositories.EmployeePayroll.AttendanceRepo;
 using AMNSystemsERP.BL.Repositories.EmployeePayroll.PayrollRepo;
 using AMNSystemsERP.BL.Repositories.EmployeePayroll.PayrollReports;
 using AMNSystemsERP.BL.Repositories.Production;
+using System.Configuration;
 
 namespace AMNSystemsERP.Api.Extensions
 {
@@ -137,6 +138,30 @@ namespace AMNSystemsERP.Api.Extensions
             => services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "AMNSystemERP", Version = "v1" });
+                c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme()
+                {
+                    Name = "Authorization",
+                    Type = SecuritySchemeType.ApiKey,
+                    Scheme = "Bearer",
+                    BearerFormat = "JWT",
+                    In = ParameterLocation.Header,
+                    Description = "",
+                });
+
+                c.AddSecurityRequirement(new OpenApiSecurityRequirement
+                {
+                    {
+                        new OpenApiSecurityScheme
+                        {
+                            Reference = new OpenApiReference
+                            {
+                                Type = ReferenceType.SecurityScheme,
+                                Id = "Bearer"
+                            }
+                        },
+                        new string[] {}
+                    }
+                });
             });
 
         public static IMvcBuilder AddApiControllers(this IServiceCollection services)
