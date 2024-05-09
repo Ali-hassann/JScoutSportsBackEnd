@@ -131,7 +131,7 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Textbox14</rd:DefaultName>
-            <Top>1.2782in</Top>
+            <Top>1.5282in</Top>
             <Left>2.95143in</Left>
             <Height>0.19154in</Height>
             <Width>0.98695in</Width>
@@ -160,7 +160,7 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Textbox14</rd:DefaultName>
-            <Top>1.2782in</Top>
+            <Top>1.5282in</Top>
             <Left>0.24474in</Left>
             <Height>0.19154in</Height>
             <Width>0.99174in</Width>
@@ -188,7 +188,7 @@
                   <Width>2.01021in</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>2.37809in</Width>
+                  <Width>3.19476in</Width>
                 </TablixColumn>
                 <TablixColumn>
                   <Width>0.9375in</Width>
@@ -769,10 +769,10 @@
               </TablixMembers>
             </TablixRowHierarchy>
             <DataSetName>VoucherPrint</DataSetName>
-            <Top>1.50585in</Top>
+            <Top>1.75585in</Top>
             <Left>0.25075in</Left>
             <Height>0.80051in</Height>
-            <Width>7.06955in</Width>
+            <Width>7.88622in</Width>
             <ZIndex>2</ZIndex>
             <DataElementOutput>Output</DataElementOutput>
             <Style>
@@ -814,7 +814,7 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>VoucherNo</rd:DefaultName>
-            <Top>1.00588in</Top>
+            <Top>1.25588in</Top>
             <Left>1.26989in</Left>
             <Height>0.21676in</Height>
             <Width>1.26786in</Width>
@@ -846,7 +846,7 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>VoucherRefrenceNo</rd:DefaultName>
-            <Top>1.2782in</Top>
+            <Top>1.5282in</Top>
             <Left>1.26989in</Left>
             <Height>0.19154in</Height>
             <Width>1.26786in</Width>
@@ -878,7 +878,7 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Remarks</rd:DefaultName>
-            <Top>1.2782in</Top>
+            <Top>1.5282in</Top>
             <Left>3.96616in</Left>
             <Height>0.19154in</Height>
             <Width>2.43787in</Width>
@@ -912,7 +912,7 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>VoucherDate</rd:DefaultName>
-            <Top>1.00588in</Top>
+            <Top>1.25588in</Top>
             <Left>3.97095in</Left>
             <Height>0.21676in</Height>
             <Width>1.25397in</Width>
@@ -948,7 +948,7 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Textbox18</rd:DefaultName>
-            <Top>0.7406in</Top>
+            <Top>0.9906in</Top>
             <Left>2.95442in</Left>
             <Height>0.20972in</Height>
             <Width>3.44961in</Width>
@@ -1075,6 +1075,20 @@
                   <TextRun>
                     <Value>=Parameters!pmrOutletName.Value</Value>
                     <Style>
+                      <FontSize>20pt</FontSize>
+                      <FontWeight>Bold</FontWeight>
+                    </Style>
+                  </TextRun>
+                </TextRuns>
+                <Style>
+                  <TextAlign>Left</TextAlign>
+                </Style>
+              </Paragraph>
+              <Paragraph>
+                <TextRuns>
+                  <TextRun>
+                    <Value />
+                    <Style>
                       <FontSize>16pt</FontSize>
                       <FontWeight>Bold</FontWeight>
                     </Style>
@@ -1100,9 +1114,8 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Textbox14</rd:DefaultName>
-            <Top>0in</Top>
             <Left>1.18642in</Left>
-            <Height>0.45625in</Height>
+            <Height>0.87949in</Height>
             <Width>4.89014in</Width>
             <ZIndex>12</ZIndex>
             <Style>
@@ -1132,7 +1145,7 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Textbox14</rd:DefaultName>
-            <Top>1.00588in</Top>
+            <Top>1.25588in</Top>
             <Left>0.24474in</Left>
             <Height>0.21676in</Height>
             <Width>0.98834in</Width>
@@ -1162,7 +1175,7 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Textbox14</rd:DefaultName>
-            <Top>1.00588in</Top>
+            <Top>1.25588in</Top>
             <Left>2.95143in</Left>
             <Height>0.21676in</Height>
             <Width>0.99174in</Width>
@@ -1194,7 +1207,7 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Textbox14</rd:DefaultName>
-            <Top>0.7406in</Top>
+            <Top>0.9906in</Top>
             <Left>0.24335in</Left>
             <Height>0.22222in</Height>
             <Width>0.98834in</Width>
@@ -1229,7 +1242,7 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>ChequeStatus</rd:DefaultName>
-            <Top>0.7406in</Top>
+            <Top>0.9906in</Top>
             <Left>1.26989in</Left>
             <Height>0.22222in</Height>
             <Width>1.24008in</Width>
@@ -1245,7 +1258,7 @@
             </Style>
           </Textbox>
           <Line Name="Line8">
-            <Top>1.17542in</Top>
+            <Top>1.42542in</Top>
             <Left>0.25199in</Left>
             <Height>0in</Height>
             <Width>2.32326in</Width>
@@ -1259,7 +1272,7 @@
             </Style>
           </Line>
           <Line Name="Line9">
-            <Top>1.17542in</Top>
+            <Top>1.42542in</Top>
             <Left>2.97643in</Left>
             <Height>0in</Height>
             <Width>2.27349in</Width>
@@ -1273,7 +1286,7 @@
             </Style>
           </Line>
           <Line Name="Line10">
-            <Top>1.43918in</Top>
+            <Top>1.68918in</Top>
             <Left>0.26009in</Left>
             <Height>0in</Height>
             <Width>2.32326in</Width>
@@ -1287,7 +1300,7 @@
             </Style>
           </Line>
           <Line Name="Line11">
-            <Top>1.43918in</Top>
+            <Top>1.68918in</Top>
             <Left>2.96692in</Left>
             <Height>0in</Height>
             <Width>3.44961in</Width>
@@ -1314,7 +1327,7 @@
             </Style>
           </Line>
           <Line Name="Line13">
-            <Top>0.91699in</Top>
+            <Top>1.16699in</Top>
             <Left>0.26171in</Left>
             <Height>0in</Height>
             <Width>2.32326in</Width>
@@ -1328,7 +1341,7 @@
             </Style>
           </Line>
           <Line Name="Line14">
-            <Top>0.91699in</Top>
+            <Top>1.16699in</Top>
             <Left>2.97643in</Left>
             <Height>0in</Height>
             <Width>2.15794in</Width>
@@ -1360,7 +1373,7 @@
             <Sizing>FitProportional</Sizing>
             <Top>0.05032in</Top>
             <Left>0.22699in</Left>
-            <Height>0.6625in</Height>
+            <Height>0.82917in</Height>
             <Width>0.96499in</Width>
             <ZIndex>25</ZIndex>
             <Style>
@@ -1375,7 +1388,7 @@
           <Border />
         </Style>
       </Body>
-      <Width>7.36867in</Width>
+      <Width>8.26867in</Width>
       <Page>
         <LeftMargin>0.2in</LeftMargin>
         <RightMargin>0.2in</RightMargin>
