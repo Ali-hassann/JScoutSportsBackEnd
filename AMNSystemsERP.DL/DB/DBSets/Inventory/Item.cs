@@ -12,6 +12,12 @@ namespace AMNSystemsERP.DL.DB.DBSets.Inventory
         [MaxLength(80)]
         public string ItemName { get; set; } = string.Empty;
         public string PartNo { get; set; } = string.Empty;
+        public string Size { get; set; } = string.Empty;
+        public string Color { get; set; } = string.Empty;
+        public string GSM { get; set; } = string.Empty;
+        public int RackNo { get; set; }
+        public int RowNo { get; set; }
+        public int BinNo { get; set; }
         public decimal PurchasePrice { get; set; }
         public decimal SalePrice { get; set; }
         public decimal ReorderLevel { get; set; }
