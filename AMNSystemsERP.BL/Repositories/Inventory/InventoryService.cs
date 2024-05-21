@@ -413,20 +413,7 @@ namespace AMNSystemsERP.BL.Repositories.Inventory
             try
             {
                 var query = $@"SELECT 
-	                                I.ItemId
-	                                , I.ItemName
-	                                , I.OutletId
-	                                , I.ItemCategoryId
-	                                , I.ItemCategoryName
-	                                , I.UnitId
-	                                , I.UnitName
-	                                , I.PartNo
-	                                , I.IsActive
-	                                , I.PurchasePrice
-	                                , I.SalePrice
-	                                , I.ReorderLevel
-                                    , I.LastPrice
-                                    , I.BalanceQuantity
+	                                I.*
                                 FROM V_Item AS I
                                 WHERE I.OutletId = {outletId}";
 
@@ -443,18 +430,9 @@ namespace AMNSystemsERP.BL.Repositories.Inventory
             try
             {
                 var query = $@"SELECT 
-	                                I.ItemId
-	                                , I.ItemName
-	                                , I.OutletId
-	                                , I.ItemCategoryId
+	                                I.*
 	                                , C.ItemCategoryName
-	                                , I.UnitId
 	                                , U.UnitName
-	                                , I.PartNo
-	                                , I.IsActive
-	                                , I.PurchasePrice
-	                                , I.SalePrice
-	                                , I.ReorderLevel
                                 FROM Item AS I
                                 INNER JOIN Unit AS U
 	                                ON I.UnitId = U.UnitId

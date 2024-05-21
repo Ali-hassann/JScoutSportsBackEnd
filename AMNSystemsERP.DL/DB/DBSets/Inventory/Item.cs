@@ -9,15 +9,15 @@ namespace AMNSystemsERP.DL.DB.DBSets.Inventory
         public long ItemId { get; set; }
         public long ItemCategoryId { get; set; }
         public int UnitId { get; set; }
-        [MaxLength(80)]
-        public string ItemName { get; set; } = string.Empty;
-        public string PartNo { get; set; } = string.Empty;
-        public string Size { get; set; } = string.Empty;
-        public string Color { get; set; } = string.Empty;
-        public string GSM { get; set; } = string.Empty;
+        public string ItemName { get; set; }
+        public string? PartNo { get; set; }
+        public string? Size { get; set; }
+        public string? Color { get; set; }
+        public string? GSM { get; set; }
         public int RackNo { get; set; }
-        public int RowNo { get; set; }
-        public int BinNo { get; set; }
+        public string? RowNo { get; set; }
+        public string? BinNo { get; set; }
+        public string? LineNumber { get; set; }
         public decimal PurchasePrice { get; set; }
         public decimal SalePrice { get; set; }
         public decimal ReorderLevel { get; set; }
