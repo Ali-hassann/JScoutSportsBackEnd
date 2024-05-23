@@ -16,8 +16,6 @@ namespace AMNSystemsERP.CL.Models.StockManagementModels
 
         public long ProjectsId { get; set; }
 
-        public string OutletName { get; set; }
-
         public virtual List<PurchaseRequisitionDetailRequest> PurchaseRequisitionDetailRequest { get; set; }
     }
 }
