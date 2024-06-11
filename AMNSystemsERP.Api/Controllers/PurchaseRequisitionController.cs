@@ -27,9 +27,7 @@ namespace AMNSystemsERP.Api.Controllers
         {
             try
             {
-                if (request?.OrganizationId > 0
-                    && request.OutletId > 0
-                    && request.PurchaseRequisitionDate != DateTime.MinValue
+                if (request?.PurchaseRequisitionDate != DateTime.MinValue
                     && request.PurchaseRequisitionDate != DateTime.MaxValue
                     && request.PurchaseRequisitionDetailRequest?.Count > 0)
                 {
@@ -51,9 +49,7 @@ namespace AMNSystemsERP.Api.Controllers
         {
             try
             {
-                if (request?.OrganizationId > 0
-                    && request.OutletId > 0
-                    && request.PurchaseRequisitionDate != DateTime.MinValue
+                if (request?.PurchaseRequisitionDate != DateTime.MinValue
                     && request.PurchaseRequisitionDate != DateTime.MaxValue
                     && request.PurchaseRequisitionDetailRequest?.Count > 0)
                 {
@@ -141,26 +137,7 @@ namespace AMNSystemsERP.Api.Controllers
             return false;
         }
 
-        [HttpPost]
-        [Route("GetPurchaseRequisitionListByOrganization")]
-        public async Task<PaginationResponse<PurchaseRequisitionMasterRequest>> GetPurchaseRequisitionListByOrganization([FromBody] InvoiceParameterRequest request)
-        {
-            try
-            {
-                if (request != null
-                    && request.OrganizationId > 0
-                    && !string.IsNullOrEmpty(request.FromDate)
-                    && !string.IsNullOrEmpty(request.ToDate))
-                {
-                    return await _purchaseRequisitionService.GetPurchaseRequisitionListByOrganization(request);
-                }
-            }
-            catch (Exception)
-            {
-                throw;
-            }
-            return null;
-        }
+       
 
 
         #endregion
