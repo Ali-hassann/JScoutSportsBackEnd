@@ -46,7 +46,9 @@ namespace AMNSystemsERP.BL.Repositories.StockManagement
 
                 if (isSaved)
                 {
-                    return await GetPurchaseRequisitionById(requisitionMaster.PurchaseRequisitionMasterId);
+					request.PurchaseRequisitionMasterId = requisitionMaster.PurchaseRequisitionMasterId;
+
+					return request;
                 }
 
             }
@@ -116,11 +118,12 @@ namespace AMNSystemsERP.BL.Repositories.StockManagement
                 var data = await _unit
                                  .DapperRepository
                                  .GetMultiResultsWithStoreProcedureAsync<PurchaseRequisitionMasterRequest,
-                                                                         PurchaseRequisitionDetailRequest>("GET_PURCHASE_REQUISITION_BY_ID",
+                                                                         PurchaseRequisitionDetailRequest>("GET_PURCHASEREQUISITION_BY_ID",
                                                                                                             DBHelper.GetDapperParms
                                                                                                             (
                                                                                                                 reqId
                                                                                                             ), CommandType.StoredProcedure);
+
                 if (data != null)
                 {
                     reqMaster = data.Item1 == null ? new PurchaseRequisitionMasterRequest() : data.Item1;
@@ -145,8 +148,6 @@ namespace AMNSystemsERP.BL.Repositories.StockManagement
                 string fromDate = DateHelper.GetDateFormat(DateHelper.GetDateFormat(request.FromDate), false, false, DateFormats.SqlDateFormat);
                 string toDate = DateHelper.GetDateFormat(DateHelper.GetDateFormat(request.ToDate), false, false, DateFormats.SqlDateFormat);
 
-                var pOrganizationId = DBHelper.GenerateDapperParameter("ORGANIZATIONID", request.OrganizationId, DbType.Int64);
-                var pOutletIds = DBHelper.GenerateDapperParameter("OUTLETIDS", request.OutletId, DbType.String);
                 var pFromDate = DBHelper.GenerateDapperParameter("FROMDATE", fromDate ?? "", DbType.String);
                 var pToDate = DBHelper.GenerateDapperParameter("TODATE", toDate ?? "", DbType.String);
                 var pSearchQuery = DBHelper.GenerateDapperParameter("SEARCHQUERY", request.SearchQuery ?? "", DbType.String);
@@ -155,16 +156,14 @@ namespace AMNSystemsERP.BL.Repositories.StockManagement
 
                 var invoiceList = await _unit
                                         .DapperRepository
-                                        .GetPaginationResultsWithStoreProcedureAsync<PurchaseRequisitionMasterRequest>("GET_PURCHASE_REQUISITION_PAGE",
+                                        .GetPaginationResultsWithStoreProcedureAsync<PurchaseRequisitionMasterRequest>("GET_PURCHASEREQUISITION_LIST",
                                                                                                                  DBHelper.GetDapperParms
                                                                                                                  (
-                                                                                                                     pOrganizationId,
-                                                                                                                     pOutletIds,
-                                                                                                                     pFromDate,
-                                                                                                                     pToDate,
                                                                                                                      pSearchQuery,
                                                                                                                      pPageNumber,
-                                                                                                                     pRecordsPerPage
+                                                                                                                     pRecordsPerPage,
+                                                                                                                     pFromDate,
+                                                                                                                     pToDate
                                                                                                                  ));
                 return invoiceList;
             }

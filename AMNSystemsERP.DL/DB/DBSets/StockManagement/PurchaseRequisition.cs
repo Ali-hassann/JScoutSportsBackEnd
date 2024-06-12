@@ -18,7 +18,6 @@ namespace AMNSystemsERP.DL.DB.DBSets.StockManagement
         public string ReferenceNo { get; set; }  
         public string Remarks { get; set; }
         public int Status { get; set; }
-        public long ProjectsId { get; set; }
 
         public virtual ICollection<PurchaseRequisitionDetail> PurchaseRequisitionDetail { get; set; }
     }

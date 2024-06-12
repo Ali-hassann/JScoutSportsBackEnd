@@ -79,6 +79,10 @@ namespace AMNSystemsERP.Api.Extensions
                  .ReverseMap();
             CreateMap<ItemOpeningRequest, ItemOpening>()
                  .ReverseMap();
+            CreateMap<PurchaseRequisitionMasterRequest, PurchaseRequisitionMaster>()
+                 .ReverseMap();
+            CreateMap<PurchaseRequisitionDetailRequest, PurchaseRequisitionDetail >()
+                 .ReverseMap();
             CreateMap<UnitRequest, Unit>()
                  .ReverseMap();
             CreateMap<ItemRequest, Item>()

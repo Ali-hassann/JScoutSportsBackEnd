@@ -87,8 +87,7 @@ namespace AMNSystemsERP.Api.Controllers
         {
             try
             {
-                if (request?.OrganizationId > 0
-                    && !string.IsNullOrEmpty(request.FromDate)
+                if (!string.IsNullOrEmpty(request.FromDate)
                     && !string.IsNullOrEmpty(request.ToDate))
                 {
                     return await _purchaseRequisitionService.GetPurchaseRequisitionListWithPagination(request);

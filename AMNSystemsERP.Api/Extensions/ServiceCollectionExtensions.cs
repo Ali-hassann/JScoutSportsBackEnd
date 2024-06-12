@@ -125,6 +125,7 @@ namespace AMNSystemsERP.Api.Extensions
                     .AddTransient<IConfigurationSettingService, ConfigurationSettingService>()
                     .AddTransient<IDashboardService, DashboardService>()
                     .AddTransient<IInventoryService, InventoryService>()
+                    .AddTransient<IPurchaseRequisitionService, PurchaseRequisitionService>()
                     .AddTransient<IInvoiceService, InvoiceService>()
                     .AddTransient<IEmployeeService, EmployeeService>()
                     .AddTransient<IAttendanceService, AttendanceService>()
