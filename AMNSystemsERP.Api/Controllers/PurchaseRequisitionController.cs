@@ -1,7 +1,5 @@
-﻿using AMNSystemsERP.BL.Repositories.Inventory;
-using AMNSystemsERP.BL.Repositories.StockManagement;
+﻿using AMNSystemsERP.BL.Repositories.StockManagement;
 using AMNSystemsERP.CL.Models.Commons.Pagination;
-using AMNSystemsERP.CL.Models.InventoryModels;
 using AMNSystemsERP.CL.Models.StockManagementModels;
 using Microsoft.AspNetCore.Mvc;
 
@@ -136,9 +134,23 @@ namespace AMNSystemsERP.Api.Controllers
             return false;
         }
 
-       
-
-
+        [HttpPost]
+        [Route("GetRequisitionDetailByIds")]
+        public async Task<List<PurchaseRequisitionDetailRequest>> GetRequisitionDetailByIds([FromBody] List<long> reqIds)
+        {
+            try
+            {
+                if (reqIds?.Count > 0)
+                {
+                    return await _purchaseRequisitionService.GetRequisitionDetailByIds(reqIds);
+                }
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            return null;
+        }
         #endregion
     }
 }

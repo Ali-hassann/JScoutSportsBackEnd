@@ -46,9 +46,9 @@ namespace AMNSystemsERP.BL.Repositories.StockManagement
 
                 if (isSaved)
                 {
-					request.PurchaseRequisitionMasterId = requisitionMaster.PurchaseRequisitionMasterId;
+                    request.PurchaseRequisitionMasterId = requisitionMaster.PurchaseRequisitionMasterId;
 
-					return request;
+                    return request;
                 }
 
             }
@@ -111,7 +111,7 @@ namespace AMNSystemsERP.BL.Repositories.StockManagement
         {
             try
             {
-                var reqMaster = new PurchaseRequisitionMasterRequest();                
+                var reqMaster = new PurchaseRequisitionMasterRequest();
 
                 var reqId = DBHelper.GenerateDapperParameter("PURCHASEREQUISITIONMASTERID", purchaseRequisitionMasterId, DbType.Int64);
 
@@ -242,6 +242,33 @@ namespace AMNSystemsERP.BL.Repositories.StockManagement
             return false;
         }
 
+        public async Task<List<PurchaseRequisitionDetailRequest>> GetRequisitionDetailByIds(List<long> reqIds)
+        {
+            try
+            {
+                var ids = string.Join(",", reqIds);
+
+                var query = $@"SELECT 
+	                                PD.ItemId
+	                                , PD.Quantity
+	                                , I.ItemName
+	                                , I.ItemCategoryName
+	                                , I.ItemTypeName
+	                                , I.UnitName
+	                                , I.Size
+                                FROM PurchaseRequisitionDetail AS PD
+                                INNER JOIN V_Item AS I
+	                                ON I.ItemId = PD.ItemId
+                                WHERE PD.PurchaseRequisitionMasterId IN({ids})";
+
+                return await _unit.DapperRepository.GetListQueryAsync<PurchaseRequisitionDetailRequest>(query);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
         public async Task<PaginationResponse<PurchaseRequisitionMasterRequest>> GetPurchaseRequisitionListByOrganization(InvoiceParameterRequest request)
         {
             try
@@ -250,7 +277,7 @@ namespace AMNSystemsERP.BL.Repositories.StockManagement
                 string toDate = DateHelper.GetDateFormat(DateHelper.GetDateFormat(request.ToDate), false, false, DateFormats.SqlDateFormat);
 
                 var pOrganizationId = DBHelper.GenerateDapperParameter("ORGANIZATIONID", request.OrganizationId, DbType.Int64);
-                
+
                 var pFromDate = DBHelper.GenerateDapperParameter("FROMDATE", fromDate ?? "", DbType.String);
                 var pToDate = DBHelper.GenerateDapperParameter("TODATE", toDate ?? "", DbType.String);
                 var pSearchQuery = DBHelper.GenerateDapperParameter("SEARCHQUERY", request.SearchQuery ?? "", DbType.String);

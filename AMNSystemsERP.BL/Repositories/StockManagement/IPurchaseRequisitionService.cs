@@ -15,5 +15,6 @@ namespace AMNSystemsERP.BL.Repositories.StockManagement
         Task<bool> RemovePurchaseRequisition(long requisitionMasterId);
         Task<bool> PostMultipleRequisitions(List<long> reqIds, short reqStatus);
         Task<PaginationResponse<PurchaseRequisitionMasterRequest>> GetPurchaseRequisitionListByOrganization(InvoiceParameterRequest request);
+        Task<List<PurchaseRequisitionDetailRequest>> GetRequisitionDetailByIds(List<long> reqIds);
     }
 }
