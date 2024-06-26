@@ -1,7 +1,6 @@
 ﻿using AMNSystemsERP.CL.Helper;
 using AMNSystemsERP.CL.Models.Commons.Pagination;
 using AMNSystemsERP.CL.Models.StockManagementModels;
-using AMNSystemsERP.DL.DB.DBSets.StockManagement;
 using AutoMapper;
 using Inventory.DL.DB.DBSets.StockManagement;
 using System.Data;
@@ -27,25 +26,20 @@ namespace AMNSystemsERP.BL.Repositories.StockManagement
             {
                 var purchaseOrderMaster = _mapper.Map<PurchaseOrderMaster>(request);
 
-                if (purchaseOrderMaster != null)
-                {
-                    request
-                        .PurchaseOrderDetailRequest
-                        .ForEach(OrderDetail =>
-                        {
-                            var detail = _mapper.Map<PurchaseOrderDetail>(OrderDetail);
-                            if (detail != null)
-                            {
-                                purchaseOrderMaster.PurchaseOrderDetail.Add(detail);
-                            }
-                        });
-                    _unit.PurchaseOrderMasterRepository.InsertSingle(purchaseOrderMaster);
-
-                    if (await _unit.SaveAsync())
+                request
+                    .PurchaseOrderDetailRequest
+                    .ForEach(OrderDetail =>
                     {
-                        request.PurchaseOrderMasterId = purchaseOrderMaster.PurchaseOrderMasterId;
-                        return request;
-                    }
+                        var detail = _mapper.Map<PurchaseOrderDetail>(OrderDetail);
+
+                        purchaseOrderMaster.PurchaseOrderDetail.Add(detail);
+                    });
+                _unit.PurchaseOrderMasterRepository.InsertSingle(purchaseOrderMaster);
+
+                if (await _unit.SaveAsync())
+                {
+                    request.PurchaseOrderMasterId = purchaseOrderMaster.PurchaseOrderMasterId;
+                    return request;
                 }
             }
             catch (Exception)
@@ -59,49 +53,40 @@ namespace AMNSystemsERP.BL.Repositories.StockManagement
         {
             try
             {
-                if (request != null)
+                var purchaseOrderMaster = _mapper.Map<PurchaseOrderMaster>(request);
+
+                var dBInvoiceDetails = await GetPurchaseOrderDetailById(request.PurchaseOrderMasterId);
+                if (dBInvoiceDetails?.Count > 0)
                 {
-
-                    var purchaseOrderMaster = _mapper.Map<PurchaseOrderMaster>(request);
-
-                    var dBInvoiceDetails = await GetPurchaseOrderDetailById(request.PurchaseOrderMasterId);
-                    if (dBInvoiceDetails?.Count > 0)
+                    /*Deleting existing line items against this req.No*/
+                    dBInvoiceDetails?.ForEach(detail =>
                     {
-                        /*Deleting existing line items against this req.No*/
-                        dBInvoiceDetails?.ForEach(detail =>
+                        if (detail?.PurchaseOrderDetailId > 0)
                         {
-                            if (detail?.PurchaseOrderDetailId > 0)
-                            {
-                                _unit.PurchaseOrderDetailRepository.DeleteById(detail.PurchaseOrderDetailId);
-                            }
-                        });
-                    }
-
-                    /*Adding new line items ...*/
-                    request.PurchaseOrderDetailRequest.ForEach(reqDetail =>
-                    {
-                        var detail = _mapper.Map<PurchaseOrderDetail>(reqDetail);
-                        if (detail?.PurchaseOrderMasterId > 0)
-                        {
-                            detail.PurchaseOrderDetailId = 0;
-                            purchaseOrderMaster.PurchaseOrderDetail.Add(detail);
+                            _unit.PurchaseOrderDetailRepository.DeleteById(detail.PurchaseOrderDetailId);
                         }
                     });
-
-                    _unit.PurchaseOrderMasterRepository.Update(purchaseOrderMaster);
-
-                    if (await _unit.SaveAsync())
-                    {
-                        return request;
-                    }
                 }
+
+                /*Adding new line items ...*/
+                request.PurchaseOrderDetailRequest.ForEach(reqDetail =>
+                {
+                    var detail = _mapper.Map<PurchaseOrderDetail>(reqDetail);
+                    if (detail?.PurchaseOrderMasterId > 0)
+                    {
+                        detail.PurchaseOrderDetailId = 0;
+                        purchaseOrderMaster.PurchaseOrderDetail.Add(detail);
+                    }
+                });
+
+                _unit.PurchaseOrderMasterRepository.Update(purchaseOrderMaster);
+
+                return await _unit.SaveAsync() ? request : null;
             }
             catch (Exception)
             {
                 throw;
             }
-
-            return new PurchaseOrderMasterRequest();
         }
 
         public async Task<List<PurchaseOrderDetailRequest>> GetPurchaseOrderDetailById(long purchaseOrderMasterId)
@@ -153,19 +138,18 @@ namespace AMNSystemsERP.BL.Repositories.StockManagement
                 var pPageNumber = DBHelper.GenerateDapperParameter("PAGENUMBER", request.PageNumber, DbType.Int64);
                 var pRecordsPerPage = DBHelper.GenerateDapperParameter("RECORDPERPAGE", request.RecordsPerPage, DbType.Int64);
 
-                var invoiceList = await _unit
-                                        .DapperRepository
-                                        .GetPaginationResultsWithStoreProcedureAsync<PurchaseOrderMasterRequest>("GET_PURCHASE_ORDER_LIST",
-                                                                                                                 DBHelper.GetDapperParms
-                                                                                                                 (
-                                                                                                                     pOutletId,
-                                                                                                                     pFromDate,
-                                                                                                                     pToDate,
-                                                                                                                     pSearchQuery,
-                                                                                                                     pPageNumber,
-                                                                                                                     pRecordsPerPage
-                                                                                                                 ));
-                return invoiceList;
+                return await _unit
+                             .DapperRepository
+                             .GetPaginationResultsWithStoreProcedureAsync<PurchaseOrderMasterRequest>("GET_PURCHASE_ORDER_LIST",
+                                                                                                        DBHelper.GetDapperParms
+                                                                                                        (
+                                                                                                            pOutletId,
+                                                                                                            pFromDate,
+                                                                                                            pToDate,
+                                                                                                            pSearchQuery,
+                                                                                                            pPageNumber,
+                                                                                                            pRecordsPerPage
+                                                                                                        ));
             }
             catch (Exception)
             {

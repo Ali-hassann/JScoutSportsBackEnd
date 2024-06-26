@@ -48,6 +48,7 @@ namespace AMNSystemsERP.Api.Controllers
             try
             {
                 if (request?.OutletId > 0
+                    && request.PurchaseOrderMasterId > 0
                     && request.PurchaseOrderDate != DateTime.MinValue
                     && request.PurchaseOrderDate != DateTime.MaxValue
                     && request.PurchaseOrderDetailRequest?.Count > 0)

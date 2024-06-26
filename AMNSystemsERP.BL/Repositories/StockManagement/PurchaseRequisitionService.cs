@@ -42,9 +42,7 @@ namespace AMNSystemsERP.BL.Repositories.StockManagement
 
                 _unit.PurchaseRequisitionMasterRepository.InsertSingle(requisitionMaster);
 
-                var isSaved = await _unit.SaveAsync();
-
-                if (isSaved)
+                if (await _unit.SaveAsync())
                 {
                     request.PurchaseRequisitionMasterId = requisitionMaster.PurchaseRequisitionMasterId;
 
@@ -63,42 +61,38 @@ namespace AMNSystemsERP.BL.Repositories.StockManagement
         {
             try
             {
-                var dBInvoice = await GetPurchaseRequisitionById(request.PurchaseRequisitionMasterId);
+                var dBRequisition = await GetPurchaseRequisitionById(request.PurchaseRequisitionMasterId);
 
-                if (request != null)
+                var reqMaster = _mapper.Map<PurchaseRequisitionMaster>(request);
+
+                /*Deleting existing line items against this req.No*/
+                dBRequisition?.PurchaseRequisitionDetailRequest?.ForEach(reqDetail =>
                 {
-                    var reqMaster = _mapper.Map<PurchaseRequisitionMaster>(request);
-
-                    /*Deleting existing line items against this req.No*/
-                    dBInvoice?.PurchaseRequisitionDetailRequest?.ForEach(reqDetail =>
+                    var detail = _mapper.Map<PurchaseRequisitionDetail>(reqDetail);
+                    if (detail != null)
                     {
-                        var detail = _mapper.Map<PurchaseRequisitionDetail>(reqDetail);
-                        if (detail != null)
-                        {
-                            _unit.PurchaseRequisitionDetailRepository.DeleteByEntity(detail);
-                        }
-                    });
-
-
-                    /*Adding new line items ...*/
-
-                    request.PurchaseRequisitionDetailRequest.ForEach(reqDetail =>
-                    {
-                        var detail = _mapper.Map<PurchaseRequisitionDetail>(reqDetail);
-                        if (detail != null)
-                        {
-                            detail.PurchaseRequisitionDetailId = 0;
-                            reqMaster.PurchaseRequisitionDetail.Add(detail);
-                        }
-                    });
-
-                    _unit.PurchaseRequisitionMasterRepository.Update(reqMaster);
-                    var isUpdated = await _unit.SaveAsync();
-
-                    if (isUpdated)
-                    {
-                        return await GetPurchaseRequisitionById(reqMaster.PurchaseRequisitionMasterId);
+                        _unit.PurchaseRequisitionDetailRepository.DeleteByEntity(detail);
                     }
+                });
+
+
+                /*Adding new line items ...*/
+
+                request.PurchaseRequisitionDetailRequest.ForEach(reqDetail =>
+                {
+                    var detail = _mapper.Map<PurchaseRequisitionDetail>(reqDetail);
+                    if (detail != null)
+                    {
+                        detail.PurchaseRequisitionDetailId = 0;
+                        reqMaster.PurchaseRequisitionDetail.Add(detail);
+                    }
+                });
+
+                _unit.PurchaseRequisitionMasterRepository.Update(reqMaster);
+
+                if (await _unit.SaveAsync())
+                {
+                    return await GetPurchaseRequisitionById(reqMaster.PurchaseRequisitionMasterId);
                 }
             }
             catch (Exception)
@@ -107,6 +101,7 @@ namespace AMNSystemsERP.BL.Repositories.StockManagement
             }
             return new PurchaseRequisitionMasterRequest();
         }
+
         public async Task<PurchaseRequisitionMasterRequest> GetPurchaseRequisitionById(long purchaseRequisitionMasterId)
         {
             try
@@ -213,26 +208,17 @@ namespace AMNSystemsERP.BL.Repositories.StockManagement
         {
             try
             {
-                if (reqIds != null
-                    && reqIds.Count > 0)
-                {
-                    var requisitions = await _unit
+                var requisitions = (await _unit
                                          .PurchaseRequisitionMasterRepository
-                                         .GetAsync(x => reqIds.Contains(x.PurchaseRequisitionMasterId));
+                                         .GetAsync(x => reqIds.Contains(x.PurchaseRequisitionMasterId))).ToList();
 
-                    if (requisitions != null
-                        && requisitions.Count() > 0)
-                    {
-                        requisitions
-                            .ToList()
-                            .ForEach(x => x.Status = reqStatus);
-                        _unit.PurchaseRequisitionMasterRepository.UpdateList(requisitions.ToList());
+                if (requisitions?.Count > 0)
+                {
+                    requisitions
+                        .ForEach(x => x.Status = reqStatus);
+                    _unit.PurchaseRequisitionMasterRepository.UpdateList(requisitions);
 
-                        if (await _unit.SaveAsync())
-                        {
-                            return true;
-                        }
-                    }
+                    return await _unit.SaveAsync();
                 }
             }
             catch (Exception)
@@ -303,6 +289,5 @@ namespace AMNSystemsERP.BL.Repositories.StockManagement
                 throw;
             }
         }
-
     }
 }
