@@ -12,10 +12,7 @@ namespace AMNSystemsERP.DL.DB.DBSets.Production
         public int ProcessId { get; set; }
         public int Status { get; set; }
         public int IssuanceNo { get; set; }
-        public DateTime? IssueDate { get; set; }
-        public DateTime? ReceiveDate { get; set; }
-        public long OutletId { get; set; }
-
+        public DateTime ProductionDate { get; set; }
         public long ProductId { get; set; }
         public int ProductSizeId { get; set; }
         public decimal IssueQuantity { get; set; }

@@ -9,9 +9,7 @@ namespace AMNSystemsERP.CL.Models.ProductionModels
         public long OrderMasterId { get; set; }
         public int ProcessId { get; set; }
         public int Status { get; set; }
-        public DateTime? IssueDate { get; set; }
-        public DateTime? ReceiveDate { get; set; }
-        public long OutletId { get; set; }
+		public DateTime ProductionDate { get; set; }
         public string EmployeeName { get; set; }
         public string ProcessTypeName { get; set; }
         public string Warehouse { get; set; }
