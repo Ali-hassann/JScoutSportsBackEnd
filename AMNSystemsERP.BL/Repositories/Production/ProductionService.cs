@@ -753,8 +753,7 @@ namespace AMNSystemsERP.BL.Repositories.Production
                                 AND PP.EmployeeId = {request.EmployeeId}
                                 AND PP.OutletId = {request.OutletId}
                                 AND PP.Status = 2
-                                AND Cast(PP.ReceiveDate AS DATE) = CAST('{request.ToDate}' AS DATE)
-";
+                                AND Cast(PP.ReceiveDate AS DATE) = CAST('{request.ToDate}' AS DATE)";
 
                 return await _unit.DapperRepository.GetListQueryAsync<ProductionProcessRequest>(query);
             }

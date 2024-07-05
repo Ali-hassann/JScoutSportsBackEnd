@@ -9,7 +9,7 @@ namespace AMNSystemsERP.DL.DB.DBSets.Production
         public long ProductionProcessId { get; set; }
         public long EmployeeId { get; set; }
         public long OrderMasterId { get; set; }
-        public int ProcessTypeId { get; set; }
+        public int ProcessId { get; set; }
         public int Status { get; set; }
         public int IssuanceNo { get; set; }
         public DateTime? IssueDate { get; set; }
