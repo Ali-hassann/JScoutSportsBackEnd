@@ -361,7 +361,8 @@ namespace AMNSystemsERP.BL.Repositories.Production
 									, ProcessRate
 									, OtherRate
 									, Description
-									, P.ProductId
+									, P.ProductId									
+                                    , PR.ProductSizeId
 									, P.ProductName
 									, PT.ProcessTypeName
 									, PT.MainProcessTypeId
@@ -693,7 +694,7 @@ namespace AMNSystemsERP.BL.Repositories.Production
             {
                 var isToUpdate = request.FirstOrDefault()?.ProductionProcessId > 0;
                 var list = _mapper.Map<List<ProductionProcess>>(request);
-                if (isToUpdate)
+                if (isToUpdate) 
                 {
                     _unit.ProductionProcessRepository.UpdateList(list);
                 }
@@ -719,41 +720,29 @@ namespace AMNSystemsERP.BL.Repositories.Production
 	                                , PP.IssuanceNo
 									, PP.EmployeeId
 									, PP.OrderMasterId
-									, PP.ProcessTypeId
+									, PP.ProcessId
 									, PP.Status
-									, PP.IssueDate
-									, PP.ReceiveDate
-	                                , PP.OutletId
+									, PP.ProductionDate
 	                                , PP.ProductId
 	                                , PP.IssueQuantity
 	                                , PP.ReceiveQuantity
+	                                , PP.ProductSizeId
+	                                , PS.ProductSizeName
 	                                , PRO.ProcessRate
 									, ORD.OrderName
 	                                , P.ProductName
-									, PC.ProductCategoryName
-									, U.UnitName
-									, PTY.ProcessTypeName
-                                FROM ProductionProcess AS PP
-								INNER JOIN ProcessType AS PTY
-									ON PTY.ProcessTypeId = PP.ProcessTypeId
-								INNER JOIN V_EMPLOYEE AS E
-									ON E.EmployeeId = PP.EmployeeId
-								INNER JOIN OrderMaster AS ORD
-									ON ORD.OrderMasterId = PP.OrderMasterId
-								INNER JOIN Product AS P
-									ON P.ProductId = PP.ProductId
-								INNER JOIN Process AS PRO
-									ON PRO.ProductId = PP.ProductId
-									AND PRO.ProcessTypeId = PP.ProcessTypeId
-								INNER JOIN ProductCategory AS PC
-									ON PC.ProductCategoryId = P.ProductCategoryId
-								INNER JOIN Unit AS U
-									ON P.UnitId = U.UnitId
+									, pt.ProcessTypeName
+                              FROM  ProductionProcess PP 
+				INNER JOIN V_EMPLOYEE E ON E.EmployeeId = PP.EmployeeId 
+				INNER JOIN OrderMaster ORD ON ORD.OrderMasterId = PP.OrderMasterId 
+				INNER JOIN Process PRO ON PRO.ProcessId= PP.ProcessId 
+				  INNER JOIN ProductSize PS ON PP.ProductSizeId = PS.ProductSizeId 
+				  INNER JOIN Product P ON PP.ProductId = P.ProductId
+				  inner join ProcessType pt on PRO.ProcessTypeId=pt.ProcessTypeId
                                 WHERE PP.OrderMasterId = {request.OrderMasterId}
                                 AND PP.EmployeeId = {request.EmployeeId}
-                                AND PP.OutletId = {request.OutletId}
                                 AND PP.Status = 2
-                                AND Cast(PP.ReceiveDate AS DATE) = CAST('{request.ToDate}' AS DATE)";
+                                AND Cast(PP.ProductionDate AS DATE) = CAST('{request.ToDate}' AS DATE)";
 
                 return await _unit.DapperRepository.GetListQueryAsync<ProductionProcessRequest>(query);
             }
@@ -768,51 +757,17 @@ namespace AMNSystemsERP.BL.Repositories.Production
             try
             {
                 var query = $@"SELECT 
-	                                ORD.OrderMasterId
-	                                , P.OutletId
-	                                , P.ProductId
-	                                , (OD.Quantity - ISNULL(SUM(PP.ReceiveQuantity),0)) AS IssueQuantity
-	                                , PRO.ProcessRate
-									, ORD.OrderName
-	                                , P.ProductName
+									OD.OrderMasterId
+									, P.ProductId				
+									, P.ProductName
 									, PS.ProductSizeId
 									, PS.ProductSizeName
-									, PRO.ProcessTypeId
-								FROM OrderMaster AS ORD
-								INNER JOIN OrderDetail AS OD
-									ON ORD.OrderMasterId = OD.OrderMasterId
-									AND ORD.OrderMasterId = {request.OrderMasterId}
+								FROM OrderDetail AS OD
 								INNER JOIN Product AS P
 									ON P.ProductId = OD.ProductId
 								INNER JOIN ProductSize AS PS
 									ON PS.ProductSizeId = OD.ProductSizeId
-								INNER JOIN Process AS PRO
-									ON PRO.ProductId = P.ProductId
-									AND PRO.ProductSizeId = OD.ProductSizeId
-									--AND PRO.ProcessTypeId = PP.ProcessTypeId
-									AND PRO.ProcessTypeId = {request.ProcessTypeId}
-                                
-                                LEFT JOIN ProductionProcess AS PP
-									ON PP.ProductId = P.ProductId
-									AND PP.ProcessTypeId = PRO.ProcessTypeId
-									AND PP.ProductSizeId = PS.ProductSizeId
-									AND PP.Status = 2
-									AND PP.ProcessTypeId = {request.ProcessTypeId}
-                                WHERE ORD.OrderMasterId = {request.OrderMasterId}
-                                AND P.OutletId = {request.OutletId}
-								
-								GROUP BY
-									ORD.OrderMasterId
-	                                , P.OutletId
-	                                , P.ProductId
-	                                , OD.Quantity
-	                                , PRO.ProcessRate
-									, ORD.OrderName
-	                                , P.ProductName
-									, PS.ProductSizeId
-									, PS.ProductSizeName
-									, PRO.ProcessTypeId
-								HAVING (OD.Quantity - ISNULL(SUM(PP.ReceiveQuantity),0)) > 0
+								WHERE OD.OrderMasterId = {request.OrderMasterId}
 ";
 
                 return await _unit.DapperRepository.GetListQueryAsync<ProductionProcessRequest>(query);
@@ -866,8 +821,8 @@ namespace AMNSystemsERP.BL.Repositories.Production
 									, PP.EmployeeId
 									, PP.OrderMasterId
 									, PP.Status
-									, PP.IssueDate
-	                                , PP.OutletId
+									, PP.ProductionDate
+	                            --    , PP.OutletId
 									, ORD.OrderName
 									, E.EmployeeName
                                 FROM ProductionProcess AS PP
@@ -875,10 +830,9 @@ namespace AMNSystemsERP.BL.Repositories.Production
 									ON E.EmployeeId = PP.EmployeeId
 								INNER JOIN OrderMaster AS ORD
 									ON ORD.OrderMasterId = PP.OrderMasterId
-                                WHERE PP.OutletId = {request.OutletId}
-                                AND PP.OrderMasterId = {request.OrderMasterId}
+                                WHERE PP.OrderMasterId = {request.OrderMasterId}
                                 AND PP.EmployeeId = {request.EmployeeId}
-                                AND PP.IssueDate BETWEEN CAST('{request.FromDate}' AS Date) AND CAST('{request.ToDate}' AS Date)
+                                AND PP.ProductionDate BETWEEN CAST('{request.FromDate}' AS Date) AND CAST('{request.ToDate}' AS Date)
 								AND Status = 1";
 
                 return await _unit.DapperRepository.GetListQueryAsync<ProductionProcessRequest>(query);
@@ -898,40 +852,27 @@ namespace AMNSystemsERP.BL.Repositories.Production
 	                                , PP.IssuanceNo
 									, PP.EmployeeId
 									, PP.OrderMasterId
-									, PP.ProcessTypeId
 									, PP.Status
-									, PP.IssueDate
-									, PP.ReceiveDate
-	                                , PP.OutletId
+									, PP.ProductionDate
 	                                , PP.ProductId
 	                                , PP.IssueQuantity
 									, ORD.OrderName
 	                                , P.ProductName
-									, PC.ProductCategoryName
-									, U.UnitName
-									, PTY.ProcessTypeName
+									, pt.ProcessTypeName
 									, PP.ProductSizeId
 									, PS.ProductSizeName
-                                FROM ProductionProcess AS PP
-								INNER JOIN ProcessType AS PTY
-									ON PTY.ProcessTypeId = PP.ProcessTypeId
-								INNER JOIN V_EMPLOYEE AS E
-									ON E.EmployeeId = PP.EmployeeId
-								INNER JOIN OrderMaster AS ORD
-									ON ORD.OrderMasterId = PP.OrderMasterId
-								INNER JOIN Product AS P
-									ON P.ProductId = PP.ProductId
-								INNER JOIN Process AS PRO
-									ON PRO.ProductId = PP.ProductId
-									AND PRO.ProcessTypeId = PTY.ProcessTypeId
-									AND PRO.ProductSizeId = PP.ProductSizeId
-								INNER JOIN ProductCategory AS PC
-									ON PC.ProductCategoryId = P.ProductCategoryId
-								INNER JOIN Unit AS U
-									ON P.UnitId = U.UnitId
-								INNER JOIN ProductSize AS PS
-									ON PP.ProductSizeId = PS.ProductSizeId
-                                WHERE PP.IssuanceNo = {issueNo}";
+									FROM     ProductionProcess PP INNER JOIN
+                  V_EMPLOYEE E ON E.EmployeeId = PP.EmployeeId INNER JOIN
+                  OrderMaster ORD ON ORD.OrderMasterId = PP.OrderMasterId INNER JOIN
+                  Process PRO 
+				  ON PRO.ProcessId= PP.ProcessId 
+				  INNER JOIN ProductSize PS 
+				  ON PP.ProductSizeId = PS.ProductSizeId 
+				  INNER JOIN Product P 
+				  ON PP.ProductId = P.ProductId
+				  inner join ProcessType pt
+				  on PRO.ProcessTypeId=pt.ProcessTypeId
+                  WHERE PP.IssuanceNo = {issueNo}";
 
                 return await _unit.DapperRepository.GetListQueryAsync<ProductionProcessRequest>(query);
             }
@@ -946,60 +887,41 @@ namespace AMNSystemsERP.BL.Repositories.Production
             try
             {
                 var query = $@"SELECT 
-								    PP.EmployeeId
-									, PP.OrderMasterId
-									, PP.ProcessTypeId
-	                                , PP.OutletId
-	                                , PP.ProductId
-	                                , PP.ProductSizeId
-	                                , SUM(ISNULL(PP.IssueQuantity,0)) AS IssueQuantity
-	                                , SUM(ISNULL(PP.ReceiveQuantity,0)) AS AlreadyReceiveQuantity
-									, ORD.OrderName
-									, E.EmployeeName
-	                                , P.ProductName
-	                                , PRO.ProcessRate
-									, PC.ProductCategoryName
-									, U.UnitName
-									, PS.ProductSizeName
-									, PTY.ProcessTypeName
-									, Cast(GetDAte() AS Date) AS ReceiveDate
-                                FROM ProductionProcess AS PP
-								INNER JOIN ProductSize AS PS
-									ON PS.ProductSizeId = PP.ProductSizeId
-								INNER JOIN V_EMPLOYEE AS E
-									ON E.EmployeeId = PP.EmployeeId
-								INNER JOIN OrderMaster AS ORD
-									ON ORD.OrderMasterId = PP.OrderMasterId
-								INNER JOIN Product AS P
-									ON P.ProductId = PP.ProductId
-								INNER JOIN ProcessType AS PTY
-									ON PP.ProcessTypeId = PTY.ProcessTypeId
-								INNER JOIN Process AS PRO
-									ON PRO.ProductId = P.ProductId
-									AND PRO.ProcessTypeId = PTY.ProcessTypeId
-									AND PRO.ProductSizeId = PP.ProductSizeId
-								INNER JOIN ProductCategory AS PC
-									ON PC.ProductCategoryId = P.ProductCategoryId
-								INNER JOIN Unit AS U
-									ON P.UnitId = U.UnitId
-                                WHERE PP.OutletId = {request.OutletId}
-                                AND PP.OrderMasterId = {request.OrderMasterId}
+		PP.EmployeeId
+		, PP.OrderMasterId
+	    , PP.ProductId
+	    , PP.ProductSizeId
+	    , SUM(ISNULL(PP.IssueQuantity,0)) AS IssueQuantity
+	    , SUM(ISNULL(PP.ReceiveQuantity,0)) AS AlreadyReceiveQuantity
+		, ORD.OrderName
+		, E.EmployeeName
+	    , P.ProductName
+	    , PRO.ProcessRate
+	    , PRO.ProcessId
+		, PS.ProductSizeName
+		, pt.ProcessTypeName
+		, Cast(GetDAte() AS Date) AS ProductionDate
+    FROM  ProductionProcess PP 
+				INNER JOIN V_EMPLOYEE E ON E.EmployeeId = PP.EmployeeId 
+				INNER JOIN OrderMaster ORD ON ORD.OrderMasterId = PP.OrderMasterId 
+				INNER JOIN Process PRO ON PRO.ProcessId= PP.ProcessId 
+				  INNER JOIN ProductSize PS ON PP.ProductSizeId = PS.ProductSizeId 
+				  INNER JOIN Product P ON PP.ProductId = P.ProductId
+				  inner join ProcessType pt on PRO.ProcessTypeId=pt.ProcessTypeId
+                   WHERE PP.OrderMasterId = {request.OrderMasterId}
                                 AND PP.EmployeeId = {request.EmployeeId}
 								GROUP BY
 									PP.EmployeeId
 									, PP.OrderMasterId
-									, PP.ProcessTypeId
-	                                , PP.OutletId
 	                                , PP.ProductId
 	                                , PP.ProductSizeId
 									, ORD.OrderName
 									, E.EmployeeName
 	                                , P.ProductName
 	                                , PRO.ProcessRate
-									, PC.ProductCategoryName
-									, U.UnitName
+                                    , PRO.ProcessId
 									, PS.ProductSizeName
-									, PTY.ProcessTypeName
+									, pt.ProcessTypeName
                                 Having SUM(ISNULL(PP.IssueQuantity,0)) > SUM(ISNULL(PP.ReceiveQuantity,0))";
 
                 return await _unit.DapperRepository.GetListQueryAsync<ProductionProcessRequest>(query);
