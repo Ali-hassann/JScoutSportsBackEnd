@@ -762,6 +762,7 @@ namespace AMNSystemsERP.BL.Repositories.Production
 									, P.ProductName
 									, PS.ProductSizeId
 									, PS.ProductSizeName
+									, OD.Quantity AS OrderQuantity
 								FROM OrderDetail AS OD
 								INNER JOIN Product AS P
 									ON P.ProductId = OD.ProductId
@@ -1183,6 +1184,7 @@ namespace AMNSystemsERP.BL.Repositories.Production
                                  , PD.Amount  
                                  , I.ProductName  
                                  , U.UnitName  
+                                 , PD.Quantity AS OrderQuantity
                                 FROM OrderMaster AS PO  
                                 INNER JOIN OrderDetail AS PD  
                                  ON PD.OrderMasterId = PO.OrderMasterId  

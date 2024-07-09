@@ -1644,21 +1644,21 @@ namespace AMNSystemsERP.BL.Repositories.Reports
         {
             try
             {
-                string query = $@"SELECT pp.ProductId,p.ProductName,pp.ProductSizeId,ps.ProductSizeName
+                string query = $@"SELECT pp.ProductId,p.ProductName,pp.ProductSizeId
 				                        , pp.EmployeeId,emp.EmployeeName
-				                        , pp.ProcessTypeId,pt.ProcessTypeName
+				                        , pp.ProcessId,pt.ProcessTypeName
 				                        , SUM(IssueQuantity) as IssueQuantity
 				                        , SUM(ReceiveQuantity) as ReceiveQuantity
 				                        , SUM(IssueQuantity)-SUM(ReceiveQuantity) as BalanceQuantity
 		                                    FROM ProductionProcess as pp
 		                                    INNER JOIN Product p ON pp.ProductId=p.ProductId
-		                                    INNER JOIN ProductSize ps ON pp.ProductSizeId=ps.ProductSizeId
-		                                    INNER JOIN ProcessType pt ON pp.ProcessTypeId=pt.ProcessTypeId
+											INNER JOIN Process pro ON pp.ProcessId=pro.ProcessId
+		                                    INNER JOIN ProcessType pt ON pro.ProcessTypeId=pt.ProcessTypeId
 		                                    INNER JOIN Employee emp ON pp.EmployeeId=emp.EmployeeId
-		                                    WHERE OrderMasterId={request.OrderMasterId}
+		                                    WHERE pp.OrderMasterId={request.OrderMasterId}
 		                                    GROUP by  pp.ProductId,p.ProductName
-				                        , pp.EmployeeId,emp.EmployeeName,ps.ProductSizeName
-				                        , pp.ProcessTypeId,pt.ProcessTypeName,pp.ProductSizeId
+				                        , pp.EmployeeId,emp.EmployeeName
+				                        ,pp.ProcessId, pro.ProcessTypeId,pt.ProcessTypeName,pp.ProductSizeId
 		                        HAVING SUM(IssueQuantity)-SUM(ReceiveQuantity)>0";
 
                 var reportData = await _unit
