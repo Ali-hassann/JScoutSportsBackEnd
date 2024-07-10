@@ -1539,68 +1539,71 @@ namespace AMNSystemsERP.BL.Repositories.Reports
         {
             try
             {
-                string query = $@"SELECT m.OrderMasterId
+                string query = $@"SELECT m.DeliveryDate
+		                                , m.OrderMasterId 
+										, m.OrderName
 		                                , d.ProductId
 		                                , ProductName
-		                                , SUM(d.Quantity) as OrderQuantity
-		                                , m.DeliveryDate
+										, d.ProductSizeId
+										, ps.ProductSizeName
 		                                , production.ProcessTypeName
+		                                , SUM(d.Quantity) as OrderQuantity
 		                                , ISNULL(production.IssueQuantity,0) as IssueQuantity
 		                                , ISNULL(production.ReceiveQuantity,0) as ReceiveQuantity
 		                                , ISNULL(production.BalanceQuantity,0)as BalanceQuantity
 		                                , ISNULL(packing.Warehouse,'Warehouse') as Warehouse
 		                                , ISNULL(packing.WarehouseQuantity,0) as WarehouseQuantity
-	                                FROM OrderDetail d
-	                                INNER JOIN OrderMaster m
-	                                ON d.OrderMasterId=m.OrderMasterId
-	                                INNER JOIN Product pr
-	                                ON d.ProductId=pr.ProductId
+	                                FROM OrderDetail d 
+									INNER JOIN OrderMaster m ON d.OrderMasterId=m.OrderMasterId
+	                                INNER JOIN Product pr ON d.ProductId=pr.ProductId
+	                                INNER JOIN ProductSize as ps on d.ProductSizeId=ps.ProductSizeId
+
 	                                LEFT JOIN
 	                                (
 		                                SELECT pp.ProductId
-						                --, pp.ProductSizeId
+						                , pp.ProductSizeId
+		                                , pt.ProcessTypeName
+		                                , pp.OrderMasterId
 		                                , SUM(pp.IssueQuantity) as IssueQuantity
 		                                , SUM(pp.ReceiveQuantity)as ReceiveQuantity
 		                                , SUM(pp.IssueQuantity)-SUM(pp.ReceiveQuantity)as BalanceQuantity
-
-		                                , pt.ProcessTypeName
-		                                , pp.OrderMasterId
 	                                FROM ProductionProcess pp 
-					                INNER JOIN Process p ON pp.ProductId=p.ProductId 
-					                AND pp.ProductSizeId=p.ProductSizeId
-						                AND pp.ProcessTypeId=p.ProcessTypeId
+					                INNER JOIN Process p ON pp.ProcessId=p.ProcessId
 		                                INNER JOIN ProcessType pt
-		                                ON pt.ProcessTypeId=p.ProcessTypeId
+		                                ON p.ProcessTypeId=pt.ProcessTypeId
 		                                --WHERE p.ProcessTypeId!=31
 						                where pp.OrderMasterId={request.OrderMasterId}
-		                                GROUP BY pp.ProductId, pt.ProcessTypeName, pp.OrderMasterId
-						                --,pp.ProductSizeId
+		                                GROUP BY pp.ProductId,pp.ProductSizeId
+												, pt.ProcessTypeName, pp.OrderMasterId
 	                                )as production
 	                                ON d.OrderMasterId=production.OrderMasterId
 	                                AND d.ProductId=production.ProductId
+									AND d.ProductSizeId=production.ProductSizeId
 	                                LEFT JOIN
 	                                (
 		                                SELECT pp.ProductId
+											, pp.ProductSizeId
 		                                , SUM(pp.ReceiveQuantity)as WarehouseQuantity
 		                                , pt.ProcessTypeName as Warehouse
 		                                , pp.OrderMasterId
 	                                FROM ProductionProcess pp
-		                                INNER JOIN Process p ON pp.ProductId=p.ProductId AND pp.ProductSizeId=p.ProductSizeId
-						                AND pp.ProcessTypeId=p.ProcessTypeId
-		                                INNER JOIN ProcessType pt
-		                                ON pt.ProcessTypeId=p.ProcessTypeId
-		                                WHERE p.ProcessTypeId=31
+		                                INNER JOIN Process p ON pp.ProcessId=p.ProcessId 
+		                                INNER JOIN ProcessType pt ON pt.ProcessTypeId=p.ProcessTypeId
+		                                WHERE p.ProcessTypeId={request.ProcessTypeId}
 						                AND pp.OrderMasterId={request.OrderMasterId}
-		                                GROUP BY pp.ProductId, pt.ProcessTypeName, pp.OrderMasterId
+		                                GROUP BY pp.ProductId,pp.ProductSizeId, pt.ProcessTypeName, pp.OrderMasterId
 	                                )as packing
 	                                ON d.OrderMasterId=packing.OrderMasterId
 	                                AND d.ProductId=packing.ProductId
-					
-	                                 where d.OrderMasterId={request.OrderMasterId} 
+										AND d.ProductSizeId=packing.ProductSizeId
+	                                 where d.OrderMasterId={request.OrderMasterId}
                                      GROUP BY
 					                 m.OrderMasterId
+									 , m.OrderName
 		                                , d.ProductId
 		                                , ProductName
+										, d.ProductSizeId
+										, ps.ProductSizeName
 		                                , m.DeliveryDate
 		                                , production.ProcessTypeName
 		                                , packing.Warehouse
