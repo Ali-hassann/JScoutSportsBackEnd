@@ -1544,8 +1544,8 @@ namespace AMNSystemsERP.BL.Repositories.Reports
 										, m.OrderName
 		                                , d.ProductId
 		                                , ProductName
-										, d.ProductSizeId
-										, ps.ProductSizeName
+										--, d.ProductSizeId
+										--, ps.ProductSizeName
 		                                , production.ProcessTypeName
 		                                , SUM(d.Quantity) as OrderQuantity
 		                                , ISNULL(production.IssueQuantity,0) as IssueQuantity
@@ -1556,12 +1556,12 @@ namespace AMNSystemsERP.BL.Repositories.Reports
 	                                FROM OrderDetail d 
 									INNER JOIN OrderMaster m ON d.OrderMasterId=m.OrderMasterId
 	                                INNER JOIN Product pr ON d.ProductId=pr.ProductId
-	                                INNER JOIN ProductSize as ps on d.ProductSizeId=ps.ProductSizeId
+	                               -- INNER JOIN ProductSize as ps on d.ProductSizeId=ps.ProductSizeId
 
 	                                LEFT JOIN
 	                                (
 		                                SELECT pp.ProductId
-						                , pp.ProductSizeId
+						               -- , pp.ProductSizeId
 		                                , pt.ProcessTypeName
 		                                , pp.OrderMasterId
 		                                , SUM(pp.IssueQuantity) as IssueQuantity
@@ -1573,37 +1573,39 @@ namespace AMNSystemsERP.BL.Repositories.Reports
 		                                ON p.ProcessTypeId=pt.ProcessTypeId
 		                                --WHERE p.ProcessTypeId!=31
 						                where pp.OrderMasterId={request.OrderMasterId}
-		                                GROUP BY pp.ProductId,pp.ProductSizeId
+		                                GROUP BY pp.ProductId
 												, pt.ProcessTypeName, pp.OrderMasterId
+												--,pp.ProductSizeId
 	                                )as production
 	                                ON d.OrderMasterId=production.OrderMasterId
 	                                AND d.ProductId=production.ProductId
-									AND d.ProductSizeId=production.ProductSizeId
+									--AND d.ProductSizeId=production.ProductSizeId
 	                                LEFT JOIN
 	                                (
 		                                SELECT pp.ProductId
-											, pp.ProductSizeId
+											--, pp.ProductSizeId
 		                                , SUM(pp.ReceiveQuantity)as WarehouseQuantity
 		                                , pt.ProcessTypeName as Warehouse
 		                                , pp.OrderMasterId
 	                                FROM ProductionProcess pp
 		                                INNER JOIN Process p ON pp.ProcessId=p.ProcessId 
 		                                INNER JOIN ProcessType pt ON pt.ProcessTypeId=p.ProcessTypeId
-		                                WHERE p.ProcessTypeId={request.ProcessTypeId}
+		                                WHERE p.ProcessTypeId=31
 						                AND pp.OrderMasterId={request.OrderMasterId}
-		                                GROUP BY pp.ProductId,pp.ProductSizeId, pt.ProcessTypeName, pp.OrderMasterId
+		                                GROUP BY pp.ProductId, pt.ProcessTypeName, pp.OrderMasterId
+										--,pp.ProductSizeId
 	                                )as packing
 	                                ON d.OrderMasterId=packing.OrderMasterId
 	                                AND d.ProductId=packing.ProductId
-										AND d.ProductSizeId=packing.ProductSizeId
+										--AND d.ProductSizeId=packing.ProductSizeId
 	                                 where d.OrderMasterId={request.OrderMasterId}
                                      GROUP BY
 					                 m.OrderMasterId
 									 , m.OrderName
 		                                , d.ProductId
 		                                , ProductName
-										, d.ProductSizeId
-										, ps.ProductSizeName
+										--, d.ProductSizeId
+										--, ps.ProductSizeName
 		                                , m.DeliveryDate
 		                                , production.ProcessTypeName
 		                                , packing.Warehouse

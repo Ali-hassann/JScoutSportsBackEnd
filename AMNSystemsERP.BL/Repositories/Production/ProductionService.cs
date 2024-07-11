@@ -252,45 +252,71 @@ namespace AMNSystemsERP.BL.Repositories.Production
         {
             try
             {
-                await DeleteAlreadyExistProcess(request);
+                var result = await DeleteAlreadyExistProcess(request);
                 var listToInsert = new List<Process>();
+                var listToUpdate = new List<Process>();
 
                 request.ForEach(process =>
                 {
                     if (process.Selected)
                     {
-                        process.ProcessId = 0;
-                        listToInsert.Add(_mapper.Map<Process>(process));
+                        if (process.EntityState == EntityState.Inserted && process.ProcessId == 0)
+                            listToInsert.Add(_mapper.Map<Process>(process));
+                        else if (process.EntityState == EntityState.Updated && process.ProcessId > 0)
+                            listToUpdate.Add(_mapper.Map<Process>(process));
                     }
                 });
 
-                if (listToInsert?.Count > 0)
+                if (listToInsert?.Count > 0 || listToUpdate.Count > 0)
                 {
-                    _unit.ProcessRepository.InsertList(listToInsert);
-                    return await _unit.SaveAsync();
+                    if (listToInsert?.Count > 0)
+                        _unit.ProcessRepository.InsertList(listToInsert);
+
+                    if (listToUpdate.Count > 0)
+                        _unit.ProcessRepository.UpdateList(listToUpdate);
+
+                    result = await _unit.SaveAsync();
                 }
+
+                return result;
             }
             catch (Exception)
             {
                 throw;
             }
+
             return false;
         }
 
-        private async Task DeleteAlreadyExistProcess(List<ProcessRequest> request)
+        private async Task<bool> DeleteAlreadyExistProcess(List<ProcessRequest> request)
         {
-            var productIds = request?.Select(r => r.ProductId)?.Distinct()?.ToList();
-            var sizeIds = request?.Select(r => r.ProductSizeId)?.Distinct()?.ToList();
-
-            if (productIds?.Count > 0 && sizeIds?.Count > 0)
+            try
             {
-                var queryToDeleteProcess = @$"DELETE FROM Process 
-                                                  WHERE OrderMasterId = {request?.FirstOrDefault()?.OrderMasterId} 
-                                                  AND ProductId IN ({string.Join(",", productIds)})
-                                                  AND ProductSizeId IN ({string.Join(",", sizeIds)})";
+                var deletedProcess = request.FindAll(e => e.EntityState == EntityState.Deleted && e.ProcessId > 0);
 
-                await _unit.DapperRepository.ExecuteNonQuery(queryToDeleteProcess, null, System.Data.CommandType.Text);
+                if (deletedProcess?.Count > 0)
+                {
+                    var processIds = deletedProcess?.Select(r => r.ProcessId)?.Distinct()?.ToList();
+
+                    if (processIds?.Count > 0)
+                    {
+                        var queryToDeleteProcess = @$"
+                                                    DELETE FROM ProductionProcess 
+                                                      WHERE ProcessId IN ({string.Join(",", processIds)})
+                                                    DELETE FROM Process 
+                                                      WHERE ProcessId IN ({string.Join(",", processIds)})";
+
+                        await _unit.DapperRepository.ExecuteNonQuery(queryToDeleteProcess, null, System.Data.CommandType.Text);
+                        return true;
+                    }
+                }
             }
+            catch (Exception ex)
+            {
+                throw;
+            }
+
+            return false;
         }
 
         public async Task<bool> TransferProcess(long fromProductId, List<long> toProductIds)
@@ -415,6 +441,7 @@ namespace AMNSystemsERP.BL.Repositories.Production
                 var query = $@"SELECT 
 	                                ISNULL(PRS.ProcessId,0) AS ProcessId
 	                                , CASE WHEN PRS.ProcessId>0 THEN 1 ELSE 0 END AS Selected
+	                                , CASE WHEN PRS.ProcessId>0 THEN 4 ELSE 1 END AS EntityState
 	                                , PRO.ProductId
 	                                , PRO.ProductName
 	                                , PT.ProcessTypeId
@@ -429,6 +456,7 @@ namespace AMNSystemsERP.BL.Repositories.Production
 	                                AND PRO.ProductId = PRS.ProductId
                                     {(request.ProductSizeId > 0 ? $"AND PRS.ProductSizeId = {request.ProductSizeId}" : "")}
                                     {(request.ProductId > 0 ? $"AND PRS.ProductId = {request.ProductId}" : "")}
+                                    {(request.OrderMasterId > 0 ? $"AND PRS.OrderMasterId = {request.OrderMasterId}" : "")}
                                 WHERE PRO.ProductId = {request.ProductId}
                                 ORDER BY 
                                     ISNULL(PRS.ProcessId,0) DESC
@@ -694,7 +722,7 @@ namespace AMNSystemsERP.BL.Repositories.Production
             {
                 var isToUpdate = request.FirstOrDefault()?.ProductionProcessId > 0;
                 var list = _mapper.Map<List<ProductionProcess>>(request);
-                if (isToUpdate) 
+                if (isToUpdate)
                 {
                     _unit.ProductionProcessRepository.UpdateList(list);
                 }
