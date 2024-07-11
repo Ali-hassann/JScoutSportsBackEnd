@@ -288,6 +288,91 @@ namespace AMNSystemsERP.BL.Repositories.Production
             return false;
         }
 
+        public async Task<bool> SaveBulkProcess(List<ProcessRequest> request)
+        {
+            try
+            {
+                var result = false;
+                var listToInsert = new List<Process>();
+                var listToUpdate = new List<Process>();
+
+                var processList = await GetProcessList(request);
+
+                if (processList.Count > 0)
+                {
+                    foreach (var process in processList)
+                    {
+                        
+                    }
+                }
+                else
+                {
+                    request.ForEach(process =>
+                    {
+                        if (process.Selected)
+                        {
+                            if (process.EntityState == EntityState.Inserted && process.ProcessId == 0)
+                                listToInsert.Add(_mapper.Map<Process>(process));
+                        }
+                    });
+                }
+
+
+                if (listToInsert?.Count > 0 || listToUpdate.Count > 0)
+                {
+                    if (listToInsert?.Count > 0)
+                        _unit.ProcessRepository.InsertList(listToInsert);
+
+                    if (listToUpdate.Count > 0)
+                        _unit.ProcessRepository.UpdateList(listToUpdate);
+
+                    result = await _unit.SaveAsync();
+                }
+
+                return result;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+
+            return false;
+        }
+
+        private async Task<List<ProcessRequest>> GetProcessList(List<ProcessRequest> request)
+        {
+            try
+            {
+                var orderMasterId = request?.FirstOrDefault()?.OrderMasterId;
+                var productIds = request?.Select(r => r.ProductId)?.Distinct()?.ToList();
+                var productSizeIds = request?.Select(r => r.ProductSizeId)?.Distinct()?.ToList();
+
+                if (productIds?.Count > 0)
+                {
+                    var query = @$"
+                                    SELECT
+                                    ProcessId
+	                                , 2 AS EntityState
+	                                , ProductId
+	                                , ProcessTypeId
+	                                , ProcessRate
+	                                , PRS.OtherRate
+	                                , PRS.Description
+                                    FROM Process
+                                    WHERE OrderMasterId = {orderMasterId}
+                                    AND ProductId IN ({string.Join(",", productIds)})
+                                    AND ProductSizeId IN ({string.Join(",", productSizeIds)})";
+
+                    return await _unit.DapperRepository.GetListQueryAsync<ProcessRequest>(query);
+                }
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+            return null;
+        }
+
         private async Task<bool> DeleteAlreadyExistProcess(List<ProcessRequest> request)
         {
             try
