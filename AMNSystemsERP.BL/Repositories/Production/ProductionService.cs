@@ -292,44 +292,24 @@ namespace AMNSystemsERP.BL.Repositories.Production
         {
             try
             {
-                var result = false;
                 var listToInsert = new List<Process>();
-                var listToUpdate = new List<Process>();
 
-                var processList = await GetProcessList(request);
-
-                if (processList.Count > 0)
+                request.ForEach(process =>
                 {
-                    foreach (var process in processList)
+                    if (process.Selected)
                     {
-                        
+                        if (process.ProcessId == 0 && process.ProcessRate > 0)
+                            listToInsert.Add(_mapper.Map<Process>(process));
                     }
-                }
-                else
-                {
-                    request.ForEach(process =>
-                    {
-                        if (process.Selected)
-                        {
-                            if (process.EntityState == EntityState.Inserted && process.ProcessId == 0)
-                                listToInsert.Add(_mapper.Map<Process>(process));
-                        }
-                    });
-                }
+                });
 
-
-                if (listToInsert?.Count > 0 || listToUpdate.Count > 0)
+                if (listToInsert?.Count > 0)
                 {
                     if (listToInsert?.Count > 0)
                         _unit.ProcessRepository.InsertList(listToInsert);
 
-                    if (listToUpdate.Count > 0)
-                        _unit.ProcessRepository.UpdateList(listToUpdate);
-
-                    result = await _unit.SaveAsync();
+                    return await _unit.SaveAsync();
                 }
-
-                return result;
             }
             catch (Exception)
             {

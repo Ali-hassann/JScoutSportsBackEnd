@@ -32,6 +32,7 @@ namespace AMNSystemsERP.BL.Repositories.Production
 
         #region Process
         Task<bool> SaveProcess(List<ProcessRequest> request);
+        Task<bool> SaveBulkProcess(List<ProcessRequest> request);
         Task<bool> TransferProcess(long fromProductId, List<long> toProductIds);
         Task<bool> RemoveProcess(int processId);
         Task<List<ProcessRequest>> GetProcessListForStore();

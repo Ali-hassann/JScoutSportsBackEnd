@@ -254,6 +254,24 @@ namespace AMNSystemsERP.Api.Controllers
             }
             return false;
         }
+        
+        [HttpPost]
+        [Route("SaveBulkProcess")]
+        public async Task<bool> SaveBulkProcess([FromBody] List<ProcessRequest> request)
+        {
+            try
+            {
+                if (request?.Count > 0)
+                {
+                    return await _productionService.SaveBulkProcess(request);
+                }
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            return false;
+        }
 
         [HttpPost]
         [Route("TransferProcess")]
